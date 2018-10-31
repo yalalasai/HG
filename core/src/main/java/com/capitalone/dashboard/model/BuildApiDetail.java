@@ -1,5 +1,7 @@
 package com.capitalone.dashboard.model;
 
+import org.bson.types.ObjectId;
+
 public class BuildApiDetail {
 	private String status;
 	private String creationdate;
@@ -11,6 +13,15 @@ public class BuildApiDetail {
 	private String mendixversion;
 	private String creator;
 	private String name;
+	private ObjectId id;
+
+    public ObjectId getId() {
+        return id;
+    }
+
+    public void setId(ObjectId id) {
+        this.id = id;
+    }
 
 	public String getStatus() {
 		return status;

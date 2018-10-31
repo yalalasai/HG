@@ -2,7 +2,6 @@ package com.capitalone.dashboard.model;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "mendixdata")
@@ -15,6 +14,7 @@ public class MendixData extends BaseModel {
 	private List<DeployApiDetail> deployApiDetails = new ArrayList<>();
 	private List<TeamserverApiBranchDetail> teamserverApiBranchDetails = new ArrayList<>();
 	private List<TeamserverApiRevisionDetail> teamserverApiRevisionDetails = new ArrayList<>();
+	
 	public List<BuildApiDetail> getBuildApiDetails() {
 		return buildApiDetails;
 	}
@@ -39,6 +39,7 @@ public class MendixData extends BaseModel {
 	public void setTeamserverApiRevisionDetails(List<TeamserverApiRevisionDetail> teamserverApiRevisionDetails) {
 		this.teamserverApiRevisionDetails = teamserverApiRevisionDetails;
 	}
+	
 	public MendixData(List<BuildApiDetail> buildApiDetails, List<DeployApiDetail> deployApiDetails,
 			List<TeamserverApiBranchDetail> teamserverApiBranchDetails,
 			List<TeamserverApiRevisionDetail> teamserverApiRevisionDetails) {

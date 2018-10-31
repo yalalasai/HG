@@ -1,12 +1,22 @@
 package com.capitalone.dashboard.model;
 
+import org.bson.types.ObjectId;
+
 public class TeamserverApiRevisionDetail {
 	private int number;
 	private String commitmessage;
 	private String author;
 	private String mendixversion;
 	private String date;
+	private ObjectId id;
 
+    public ObjectId getId() {
+        return id;
+    }
+
+    public void setId(ObjectId id) {
+        this.id = id;
+    }
 	public int getNumber() {
 		return number;
 	}
