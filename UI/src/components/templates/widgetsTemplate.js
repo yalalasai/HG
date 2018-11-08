@@ -24,7 +24,6 @@
         ctrl.toggleView = function (index) {
             ctrl.widgetView = typeof ctrl.tabs[index] === 'undefined' ? ctrl.tabs[0].name : ctrl.tabs[index].name;
         };
-debugger;
         $scope.init = function (dashboard) {
             ctrl.sortOrder = [];
             var widgetObj = {};
