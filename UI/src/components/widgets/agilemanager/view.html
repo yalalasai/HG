@@ -1,0 +1,57 @@
+<div class="deploy-view">
+
+    <table class="table">
+        <thead>
+            <tr class="dash-row ">
+
+                <th class="server-count align-left ">Package Name</th>
+                <th class="server-count align-left">Version</th>
+                <th class="server-count align-left">Description</th>
+                <th class="server-count align-left">Creation Date</th>
+                <th class="server-count align-left">MendixVersion</th>
+                <th class="server-count align-left">Creator</th>
+                <th class="server-count align-left">Status</th>
+
+            </tr>
+        </thead>
+
+        <tbody ng-repeat="x in agileManagerView.agileManagerDetails">
+            <tr class="dash-row clickable" ng-repeat="environment in x.buildApiDetails">
+
+                <td class="server-count align-left">
+                    {{environment.name}}
+
+                </td>
+
+                <td class="server-count align-left">
+                    {{environment.version}}
+
+                </td>
+
+                <td class="server-count align-left">
+                    {{environment.description}}
+
+                </td>
+                <td class="server-count align-left">
+                    {{environment.creationdate | date:'dd-MM-yyyy HH:mm:ss '}}
+
+                </td>
+
+                <td class="server-count">
+                    {{environment.mendixversion}}
+                </td>
+                <td class="server-count align-left">
+                    {{environment.creator}}
+
+                </td>
+
+                <td class="server-count align-left">
+                    <i class="fa fa-check-circle text-success ng-scope" ng-if="environment.status == 'succeeded'"></i>
+                    <i class="fa fa-times-circle text-danger ng-scope" ng-if="environment.status != 'succeeded'"></i>
+                    {{environment.status}}
+                </td>
+
+            </tr>
+        </tbody>
+    </table>
+</div>
