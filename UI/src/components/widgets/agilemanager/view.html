@@ -1,55 +1,31 @@
 <div class="deploy-view">
 
-    <table class="table">
-        <thead>
-            <tr class="dash-row ">
 
-                <th class="server-count align-left ">Package Name</th>
-                <th class="server-count align-left">Version</th>
-                <th class="server-count align-left">Description</th>
-                <th class="server-count align-left">Creation Date</th>
-                <th class="server-count align-left">MendixVersion</th>
-                <th class="server-count align-left">Creator</th>
-                <th class="server-count align-left">Status</th>
-
-            </tr>
-        </thead>
 
         <tbody ng-repeat="x in agileManagerView.agileManagerDetails">
-            <tr class="dash-row clickable" ng-repeat="environment in x.buildApiDetails">
-
-                <td class="server-count align-left">
-                    {{environment.name}}
-
-                </td>
-
-                <td class="server-count align-left">
-                    {{environment.version}}
-
-                </td>
-
-                <td class="server-count align-left">
-                    {{environment.description}}
-
-                </td>
-                <td class="server-count align-left">
-                    {{environment.creationdate | date:'dd-MM-yyyy HH:mm:ss '}}
-
-                </td>
-
-                <td class="server-count">
-                    {{environment.mendixversion}}
-                </td>
-                <td class="server-count align-left">
-                    {{environment.creator}}
-
-                </td>
-
-                <td class="server-count align-left">
-                    <i class="fa fa-check-circle text-success ng-scope" ng-if="environment.status == 'succeeded'"></i>
-                    <i class="fa fa-times-circle text-danger ng-scope" ng-if="environment.status != 'succeeded'"></i>
-                    {{environment.status}}
-                </td>
+            <tr class="dash-row clickable" >   
+                    <body>
+                            <h1>Chart.js Sample</h1>
+                            <div class="chart-container" style="width: 600px; height: 400px">
+                                <canvas id="countries"></canvas>
+                            </div>
+                        
+                            <script>
+                                var pieData = {
+                                    datasets: [{
+                                        data: [20, 40, 10, 30],
+                                        backgroundColor: ["#878BB6", "#4ACAB4", "#FF8153", "#FFEA88"]
+                                    }]
+                                };
+                        
+                                // Get the context of the canvas element we want to select
+                                var countries = document.getElementById("countries").getContext("2d");
+                                new Chart(countries, {
+                                    type: 'pie',
+                                    data: pieData
+                                });
+                            </script>
+                        </body>         
 
             </tr>
         </tbody>
