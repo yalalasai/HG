@@ -11,6 +11,7 @@
 
     AgileManagerWidgetViewController.$inject = ['$scope', 'hpamData', '$q', '$uibModal'];
     function AgileManagerWidgetViewController($scope, hpamData, $q, $uibModal) {
+        console.log(hpamData)
         var ctrl = this;
         var builds = [];
         ctrl.agileManagerDetails = [];
@@ -32,9 +33,9 @@
         };
         ctrl.copyAgileManagerDetails = [];
 
-        ctrl.onChnageReleaseId = function (releaseId) {
+        ctrl.onChangeReleaseId = function (releaseId) {
             var arr = [];
-            
+
             ctrl.agileManagerDetails[0].hpamBacklog.forEach((item, index) => {
                 if (item.status == 'Done') {
                     arr.push({ id: item.releaseid.id, status: 'Done' });
@@ -55,15 +56,15 @@
             ctrl.loadChart(result.Done, result.new);
         }
 
-        ctrl.GetFilterBy = function(filterBy, value) {
-            
-           var filtered =  ctrl.agileManagerDetails[0].hpamBacklog.filter(function(item) {
-              return item[filterBy].id.toString().toLowerCase().indexOf(value) > -1;
+        ctrl.GetFilterBy = function (filterBy, value) {
+
+            var filtered = ctrl.agileManagerDetails[0].hpamBacklog.filter(function (item) {
+                return item[filterBy].id.toString().toLowerCase().indexOf(value) > -1;
             });
 
             ctrl.copyAgileManagerDetails[0].hpamBacklog = angular.copy(filtered);
 
-         }
+        }
 
         ctrl.filterfeatures = function () {
             ctrl.uniquefeatureIds = [...new Set(ctrl.agileManagerDetails[0].hpamBacklog.map(item => item.featureid.id))];
@@ -86,11 +87,25 @@
 
         }
 
+        $scope.$on('eventEmitedName', function (event, data) {
+            console.log('event fired');
+        });
+
         ctrl.load = function () {
+
+            //$scope.widgetConfig.options.workspaceid
+
             hpamData.details($scope.widgetConfig.componentId).
                 then(function (data) {
                     ctrl.agileManagerDetails = angular.copy(data.data);
                     ctrl.copyAgileManagerDetails = angular.copy(data.data);
+                    var filtered = ctrl.agileManagerDetails[0].hpamBacklog.filter(function (item) {
+                        return item.workspaceid.toString().toLowerCase().indexOf($scope.widgetConfig.options.workspaceid) > -1;
+                    });
+
+                    ctrl.agileManagerDetails[0].hpamBacklog = angular.copy(filtered);
+                    ctrl.copyAgileManagerDetails[0].hpamBacklog = angular.copy(filtered);
+
                     ctrl.uniqueReleaseIds = [...new Set(ctrl.agileManagerDetails[0].hpamBacklog.map(item => item.releaseid.id))];
 
                     ctrl.agileManagerUniqueIds.releaseid = [...new Set(ctrl.agileManagerDetails[0].hpamBacklog.map(item => item.releaseid.id))];

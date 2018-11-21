@@ -4,7 +4,7 @@
         <label style="text-align:center;width: 100%">Release ID Backlog Status</label>
         <div class="form-group" style="width:120px">
             <label>Select Release ID</label>
-            <select ng-model="agileManagerView.selectedReleaseId" ng-change="agileManagerView.onChnageReleaseId(agileManagerView.selectedReleaseId)"
+            <select ng-model="agileManagerView.selectedReleaseId" ng-change="agileManagerView.onChangeReleaseId(agileManagerView.selectedReleaseId)"
                 class="form-control col-2">
                 <option ng-repeat="item in agileManagerView.uniqueReleaseIds" value="{{item}}">{{item}}</option>
             </select>
@@ -73,7 +73,7 @@
             <tr class="dash-row clickable" ng-repeat="item in agileManagerView.copyAgileManagerDetails[0].hpamBacklog">
 
                 <td class="server-count align-left">
-                    {{item.backlodid}}
+                    {{item.backlogid}}
 
                 </td>
 
