@@ -25,11 +25,13 @@
             themeid: [],
             featureid: [],
             applicationid: [],
+            sprintid: [],
             selectedreleaseId: '',
             selectedteam: '',
             selectedtheme: '',
             selectedfeature: '',
-            selectedapplication: ''
+            selectedapplication: '',
+            selectedsprint: ''
         };
         ctrl.copyAgileManagerDetails = [];
 
@@ -113,6 +115,7 @@
                     ctrl.agileManagerUniqueIds.themeid = [...new Set(ctrl.agileManagerDetails[0].hpamBacklog.map(item => item.themeid.id))];
                     ctrl.agileManagerUniqueIds.featureid = [...new Set(ctrl.agileManagerDetails[0].hpamBacklog.map(item => item.featureid.id))];
                     ctrl.agileManagerUniqueIds.applicationid = [...new Set(ctrl.agileManagerDetails[0].hpamBacklog.map(item => item.applicationid.id))];
+                    ctrl.agileManagerUniqueIds.applicationid = [...new Set(ctrl.agileManagerDetails[0].hpamBacklog.map(item => item.sprintid.id))];
                     ctrl.filterfeatures();
                 });
 
