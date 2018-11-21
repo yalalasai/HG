@@ -66,6 +66,13 @@
                     </select>
                 </th>
 
+                <th class="server-count align-left">Sprint
+                    <select ng-model="agileManagerView.agileManagerUniqueIds.selectedapplication" ng-change="agileManagerView.GetFilterBy('sprintid',agileManagerView.agileManagerUniqueIds.selectedsprint)" autofocus>
+                            <option value="">All</option>
+                        <option ng-repeat="item in agileManagerView.agileManagerUniqueIds.sprintid" value="{{item}}">{{item}}</option>
+                    </select>
+                </th>
+
             </tr>
         </thead>
 
@@ -91,11 +98,11 @@
 
                 </td>
 
-                <td class="server-count">
-                    {{item.releaseid.id}}
+                <td class="server-count" ng-repeat="item in agileManagerView.copyAgileManagerDetails[0].hpamRelease">
+                    {{item.name}}
                 </td>
-                <td class="server-count align-left">
-                    {{item.teamid.id}}
+                <td class="server-count align-left" ng-repeat="item in agileManagerView.copyAgileManagerDetails[0].hpamTeam">
+                    {{item.name}}
 
                 </td>
                 <td class="server-count align-left">
@@ -107,10 +114,12 @@
 
                 </td>
 
+                <td class="server-count align-left" ng-repeat="item in agileManagerView.copyAgileManagerDetails[0].hpamApplication">
+                    {{item.name}}
+                </td>
+
                 <td class="server-count align-left">
-                    <!-- <i class="fa fa-check-circle text-success ng-scope" ng-if="environment.status == 'succeeded'"></i>
-                    <i class="fa fa-times-circle text-danger ng-scope" ng-if="environment.status != 'succeeded'"></i> -->
-                    {{item.applicationid.id}}
+                    {{item.sprintid.id}}
                 </td>
 
             </tr>
