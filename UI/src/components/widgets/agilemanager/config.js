@@ -6,36 +6,45 @@
     angular
         .module(HygieiaConfig.module)
         .controller('AgileManagerWidgetConfigController', AgileManagerWidgetConfigController);
-        AgileManagerWidgetConfigController.$inject = ['modalData', '$scope', 'collectorData', '$uibModalInstance'];
-    function AgileManagerWidgetConfigController(modalData, $scope, collectorData, $uibModalInstance) {
+        AgileManagerWidgetConfigController.$inject = ['modalData', '$scope', 'hpamData', '$uibModalInstance'];
+    function AgileManagerWidgetConfigController(modalData, $scope, hpamData, $uibModalInstance) {
         var ctrl = this,
         widgetConfig = modalData.widgetConfig;
+        ctrl.selectedworkspaceIds = null;
+        ctrl.agileManagerUniqueIds = {
+            workspaceid: [],
+            selectedworkspaceIds: ''
+        };
         
+
         // public variables
         //ctrl.buildDurationThreshold = 3;
         //ctrl.buildConsecutiveFailureThreshold = 5;
         
-        $scope.getJobs = function (filter) {
-        	return collectorData.itemsByType('agilemanager', {"search": filter, "size": 20}).then(function (response){
-        		return response;
-        	});
-        }
+        // $scope.getJobs = function (filter) {
+        // 	return hpamData.itemsByType('agilemanager', {"search": filter, "size": 20}).then(function (response){
+        // 		return response;
+        // 	});
+        // }
 
-        $scope.getJobsById = function (id) {
-            return collectorData.getCollectorItemById(id).then(function (response){
-                return response;
-            });
-        }
-        loadSavedBuildJob();
+        ctrl.load = function () {
+            hpamData.details(widgetConfig.options.id).
+                then(function (data) {
+                    ctrl.agileManagerUniqueIds.workspaceid = [...new Set(data.data[0].hpamWorkSpace.map(item => item.workspaceid))];
+                });
+            };
+
+ 
+        //loadSavedBuildJob();
         // set values from config
-        if (widgetConfig) {
-            if (widgetConfig.options.buildDurationThreshold) {
-                ctrl.buildDurationThreshold = widgetConfig.options.buildDurationThreshold;
-            }
-            if (widgetConfig.options.consecutiveFailureThreshold) {
-                ctrl.buildConsecutiveFailureThreshold = widgetConfig.options.consecutiveFailureThreshold;
-            }
-        }
+        // if (widgetConfig) {
+        //     if (widgetConfig.options.buildDurationThreshold) {
+        //         ctrl.buildDurationThreshold = widgetConfig.options.buildDurationThreshold;
+        //     }
+        //     if (widgetConfig.options.consecutiveFailureThreshold) {
+        //         ctrl.buildConsecutiveFailureThreshold = widgetConfig.options.consecutiveFailureThreshold;
+        //     }
+        // }
         // public methods
         ctrl.submit = submitForm;
 
@@ -51,21 +60,24 @@
             }
         }
         
-        function getBuildsCallback(data) {
-            ctrl.collectorItemId = data;
-        }
+        // function getBuildsCallback(data) {
+        //     ctrl.collectorItemId = data;
+        // }
 
         function submitForm(valid, collector) {
             if (valid) {
+                $scope.$emit('eventEmitedName');
                 var form = document.buildConfigForm;
                 var postObj = {
                     name: 'agilemanager',
                     options: {
-                    	id: widgetConfig.options.id
+                        id: widgetConfig.options.id,
+                        workspaceid: ctrl.selectedworkspaceIds
                     },
-                    componentId: modalData.dashboard.application.components[0].id,
-                    collectorItemId: collector.id,
+                    componentId: modalData.dashboard.application.components[0].id
                 };
+
+                
                 // pass this new config to the modal closing so it's saved
                 $uibModalInstance.close(postObj);
             }
