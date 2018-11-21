@@ -4,6 +4,7 @@ public class HPAMBacklog {
 	
 	private Object applicationid;
 	private Object featureid;
+	private Object sprintid;
 	private String name;
 	private Object teamid;
 	private Object releaseid;
@@ -12,6 +13,7 @@ public class HPAMBacklog {
 	private String status;
 	private int backlogid;
 	private int workspaceid;
+	
 	
 	public Object getApplicationid() {
 		return applicationid;
@@ -24,6 +26,12 @@ public class HPAMBacklog {
 	}
 	public void setFeatureid(Object featureid) {
 		this.featureid = featureid;
+	}
+	public Object getSprintid() {
+		return sprintid;
+	}
+	public void setSprintid(Object sprintid) {
+		this.sprintid = sprintid;
 	}
 	public String getName() {
 		return name;
