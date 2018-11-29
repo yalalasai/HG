@@ -9,6 +9,7 @@ public class HPAMTeam {
 	private String name;
 	private int teamid;
 	private String type;
+	private String workspace;
 	
 	public int getEstimatedvelocity() {
 		return estimatedvelocity;
@@ -58,6 +59,12 @@ public class HPAMTeam {
 	}
 	public void setType(String type) {
 		this.type = type;
+	}
+	public String getWorkspace() {
+		return workspace;
+	}
+	public void setWorkspace(String workspace) {
+		this.workspace = workspace;
 	}
 	
 }
