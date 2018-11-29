@@ -61,7 +61,12 @@
         ctrl.GetFilterBy = function (filterBy, value) {
 
             var filtered = ctrl.agileManagerDetails[0].hpamBacklog.filter(function (item) {
-                return item[filterBy].id.toString().toLowerCase().indexOf(value) > -1;
+                if(item[filterBy].id){
+                    return item[filterBy].id.toString().toLowerCase().indexOf(value) > -1;
+                }
+                else {
+                    return null;
+                }
             });
 
             ctrl.copyAgileManagerDetails[0].hpamBacklog = angular.copy(filtered);
