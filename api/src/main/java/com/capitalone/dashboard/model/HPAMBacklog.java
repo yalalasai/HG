@@ -1,7 +1,13 @@
 package com.capitalone.dashboard.model;
 
-public class HPAMBacklog {
+import java.io.Serializable;
+
+public class HPAMBacklog implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Object applicationid;
 	private Object featureid;
 	private Object sprintid;
@@ -9,12 +15,18 @@ public class HPAMBacklog {
 	private Object teamid;
 	private Object releaseid;
 	private Object themeid;
-	private int storypoints;
+	private Object storypoints;
 	private String status;
 	private int backlogid;
 	private int workspaceid;
 	
 	
+	public Object getStorypoints() {
+		return storypoints;
+	}
+	public void setStorypoints(Object storypoints) {
+		this.storypoints = storypoints;
+	}
 	public Object getApplicationid() {
 		return applicationid;
 	}
@@ -57,12 +69,13 @@ public class HPAMBacklog {
 	public void setThemeid(Object themeid) {
 		this.themeid = themeid;
 	}
-	public int getStorypoints() {
-		return storypoints;
-	}
-	public void setStorypoints(int storypoints) {
-		this.storypoints = storypoints;
-	}
+
+//	public ObjectId getStorypoints() {
+//		return storypoints;
+//	}
+//	public void setStorypoints(ObjectId storypoints) {
+//		this.storypoints = storypoints;
+//	}
 	public String getStatus() {
 		return status;
 	}
@@ -81,5 +94,7 @@ public class HPAMBacklog {
 	public void setWorkspaceid(int workspaceid) {
 		this.workspaceid = workspaceid;
 	}
+	
+
 		
 }
