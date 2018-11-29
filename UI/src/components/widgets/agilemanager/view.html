@@ -98,11 +98,11 @@
 
                 </td>
 
-                <td class="server-count" ng-repeat="item in agileManagerView.copyAgileManagerDetails[0].hpamRelease">
-                    {{item.name}}
+                <td class="server-count" >
+                    {{item.releaseid.id}}
                 </td>
-                <td class="server-count align-left" ng-repeat="item in agileManagerView.copyAgileManagerDetails[0].hpamTeam">
-                    {{item.name}}
+                <td class="server-count align-left" >
+                    {{item.teamid.id}}
 
                 </td>
                 <td class="server-count align-left">
@@ -114,8 +114,8 @@
 
                 </td>
 
-                <td class="server-count align-left" ng-repeat="item in agileManagerView.copyAgileManagerDetails[0].hpamApplication">
-                    {{item.name}}
+                <td class="server-count align-left">
+                    {{item.applicationid.name}}
                 </td>
 
                 <td class="server-count align-left">
