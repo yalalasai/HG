@@ -1,18 +1,17 @@
 <div id="chart-container" style="width:100%;height:80%">
 
-    <div class="col-6" id="right" style="float:left; width: 50%;height:70%;   ">
-        <label style="text-align:center;width: 100%">Release ID Backlog Status</label>
-        <div class="form-group" style="width:120px">
-            <label>Select Release ID</label>
-            <select ng-model="agileManagerView.selectedReleaseId" ng-change="agileManagerView.onChangeReleaseId(agileManagerView.selectedReleaseId)"
-                class="form-control col-2">
-                <option ng-repeat="item in agileManagerView.uniqueReleaseIds" value="{{item}}">{{item}}</option>
+    <div class="col-6" id="right" style="float:left; width: 50%;height:70%;"">
+        <label style="text-align:center;width: 100%">Team - Estimated Velocity</label>
+        <div class="form-group">
+            <label style="text-align:center" style="visibility:hidden"></label>
+            <select class="form-control col-2" style="visibility:hidden">
+                <option></option>
             </select>
         </div>
-        <canvas ng-show="agileManagerView.selectedReleaseId != 0" id="pie-chart" ></canvas>
+        <canvas id="barChart"></canvas>
     </div>
 
-    <div id="left" style="    float:right; width: 50%;height:70%" ;>
+    <div id="left" style="float:right; width: 50%;height:70%" >
         <label style="text-align:center;width: 100%">Feature - Storypoints Status</label>
         <div class="form-group">
             <label style="text-align:center" style="visibility:hidden"></label>
@@ -26,17 +25,18 @@
 
 </div>
 
-<div style="width:600px; margin:0 auto;">
-    <label style="text-align:center;width: 100%">Team - Estimated Velocity</label>
-    <div class="form-group">
-        <label style="text-align:center" style="visibility:hidden"></label>
-        <select 
-            class="form-control col-2" style="visibility:hidden">
-            <option></option>
-        </select>
+<div id="left" style="width:600px; margin:0 auto;">
+        <label style="text-align:center;width: 100%">Release ID Backlog Status</label>
+        <div class="form-group" style="width:120px">
+            <label>Select Release ID</label>
+            <select ng-model="agileManagerView.selectedReleaseId" ng-change="agileManagerView.onChangeReleaseId(agileManagerView.selectedReleaseId)"
+                class="form-control col-2">
+                <option ng-repeat="item in agileManagerView.uniqueReleaseIds" value="{{item}}">{{item}}</option>
+            </select>
+        </div>
+        <canvas ng-show="agileManagerView.selectedReleaseId != 0" id="pie-chart" ></canvas>
     </div>
-    <canvas id="barChart"></canvas>
-</div>
+
 
 <div style="margin-top:10px">
     <table class="table">
@@ -111,10 +111,10 @@
                 </td>
 
                 <td class="server-count" >
-                    {{item.releaseid.id}}
+                    {{item.releaseid.name}}
                 </td>
                 <td class="server-count align-left" >
-                    {{item.teamid.id}}
+                    {{item.teamid.name}}
 
                 </td>
                 <td class="server-count align-left">
@@ -127,7 +127,7 @@
                 </td>
 
                 <td class="server-count align-left">
-                    {{item.applicationid.id}}
+                    {{item.applicationid.name}}
                 </td>
 
                 <td class="server-count align-left">
