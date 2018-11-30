@@ -30,7 +30,7 @@
         ctrl.load = function () {
             hpamData.details(widgetConfig.options.id).
                 then(function (data) {
-                    ctrl.agileManagerUniqueIds.workspaceid = [...new Set(data.data[0].hpamWorkSpace.map(item => item.workspaceid))];
+                    ctrl.agileManagerUniqueIds.workspaceid = [...new Set(data.data[0].hpamWorkSpace.map(item => item.workspaceid))];                
                 });
             };
 
