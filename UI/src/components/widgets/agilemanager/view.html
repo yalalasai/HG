@@ -22,10 +22,20 @@
             </select>
         </div>
         <canvas id="myChart"></canvas>
-    </div>
-    
- </div>  -->
+    </div> 
 
+</div>
+
+<div style="width:600px; margin:0 auto;">
+    <label style="text-align:center;width: 100%">Team - Estimated Velocity</label>
+    <div class="form-group">
+        <label style="text-align:center" style="visibility:hidden"></label>
+        <select 
+            class="form-control col-2" style="visibility:hidden">
+            <option></option>
+        </select>
+    </div>
+    <canvas id="barChart"></canvas>
 </div>
 
 <div style="margin-top:10px">
@@ -101,10 +111,10 @@
                 </td>
 
                 <td class="server-count" >
-                    {{item.releaseid.name}}
+                    {{item.releaseid.id}}
                 </td>
                 <td class="server-count align-left" >
-                    {{item.teamid.name}}
+                    {{item.teamid.id}}
 
                 </td>
                 <td class="server-count align-left">
@@ -117,7 +127,7 @@
                 </td>
 
                 <td class="server-count align-left">
-                    {{item.applicationid.name}}
+                    {{item.applicationid.id}}
                 </td>
 
                 <td class="server-count align-left">
