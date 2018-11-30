@@ -105,35 +105,14 @@
             console.log('event fired');
         });
 
-        ctrl.load = function () {
-
-            //$scope.widgetConfig.options.workspaceid
-
-            hpamData.details($scope.widgetConfig.componentId).
-                then(function (data) {
-                    ctrl.agileManagerDetails = angular.copy(data.data);
-                    ctrl.copyAgileManagerDetails = angular.copy(data.data);
-                    var filtered = ctrl.agileManagerDetails[0].hpamBacklog.filter(function (item) {
-                        return item.workspaceid.toString().toLowerCase().indexOf($scope.widgetConfig.options.workspaceid) > -1;
-                    });
-
-                    ctrl.agileManagerDetails[0].hpamBacklog = angular.copy(filtered);
-                    ctrl.copyAgileManagerDetails[0].hpamBacklog = angular.copy(filtered);
-
-                    ctrl.uniqueReleaseIds = [...new Set(ctrl.agileManagerDetails[0].hpamBacklog.map(item => item.releaseid.id))];
-
-                    ctrl.agileManagerUniqueIds.releaseid = [...new Set(ctrl.agileManagerDetails[0].hpamBacklog.map(item => item.releaseid.id))];
-                    ctrl.agileManagerUniqueIds.teamid = [...new Set(ctrl.agileManagerDetails[0].hpamBacklog.map(item => item.teamid.id))];
-                    ctrl.agileManagerUniqueIds.themeid = [...new Set(ctrl.agileManagerDetails[0].hpamBacklog.map(item => item.themeid.id))];
-                    ctrl.agileManagerUniqueIds.featureid = [...new Set(ctrl.agileManagerDetails[0].hpamBacklog.map(item => item.featureid.id))];
-                    ctrl.agileManagerUniqueIds.applicationid = [...new Set(ctrl.agileManagerDetails[0].hpamBacklog.map(item => item.applicationid.id))];
-                    ctrl.agileManagerUniqueIds.sprintid = [...new Set(ctrl.agileManagerDetails[0].hpamBacklog.map(item => item.sprintid.id))];
-                    ctrl.filterfeatures();
-                    ctrl.teamvelocity();
-                });
-
-
-        };
+        function getRandomColorHex() {
+            var hex = "0123456789ABCDEF",
+                color = "#";
+            for (var i = 1; i <= 6; i++) {
+              color += hex[Math.floor(Math.random() * 16)];
+            }
+            return color;
+          }
 
         ctrl.loadChart = function (done, newvalue) {
             var pieData = {
@@ -155,16 +134,19 @@
         ctrl.loadlinechart = function (featuresList) {
             let data = [];
             let lables = [];
+            let colors = [];
             featuresList.forEach((item, index) => {
                 data.push(item.storyPoints);
                 lables.push(`feature-${item.id}`);
+                colors.push(getRandomColorHex())
             });
+
             var linechartdata = {
                 labels: lables,
                 datasets: [{
                     label: "StoryPoints (Completed)",
                     data: data,
-                    backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"]
+                    backgroundColor: colors,
                 }],
             };
 
@@ -193,16 +175,18 @@
         ctrl.loadbarchart = function (teamList) {
             let data = [];
             let lables = [];
+            let colors = [];
             teamList.forEach((item, index) => {
                 data.push(item.velocity);
                 lables.push(item.name);
+                colors.push(getRandomColorHex());
             });
             var linechartdata = {
                 labels: lables,
                 datasets: [{
                     label: "Estimated Velocity",
                     data: data,
-                    backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"]
+                    backgroundColor: colors
                 }],
             };
 
@@ -226,6 +210,36 @@
                     }
                 }
             });
+        }
+   
+        ctrl.load = function () {
+
+            //$scope.widgetConfig.options.workspaceid
+
+            hpamData.details($scope.widgetConfig.componentId).
+                then(function (data) {
+                    ctrl.agileManagerDetails = angular.copy(data.data);
+                    ctrl.copyAgileManagerDetails = angular.copy(data.data);
+                    var filtered = ctrl.agileManagerDetails[0].hpamBacklog.filter(function (item) {
+                        return item.workspaceid.toString().toLowerCase().indexOf($scope.widgetConfig.options.workspaceid) > -1;
+                    });
+
+                    ctrl.agileManagerDetails[0].hpamBacklog = angular.copy(filtered);
+                    ctrl.copyAgileManagerDetails[0].hpamBacklog = angular.copy(filtered);
+
+                    ctrl.uniqueReleaseIds = [...new Set(ctrl.agileManagerDetails[0].hpamBacklog.map(item => item.releaseid.id))];
+
+                    ctrl.agileManagerUniqueIds.releaseid = [...new Set(ctrl.agileManagerDetails[0].hpamBacklog.map(item => item.releaseid.id))];
+                    ctrl.agileManagerUniqueIds.teamid = [...new Set(ctrl.agileManagerDetails[0].hpamBacklog.map(item => item.teamid.id))];
+                    ctrl.agileManagerUniqueIds.themeid = [...new Set(ctrl.agileManagerDetails[0].hpamBacklog.map(item => item.themeid.id))];
+                    ctrl.agileManagerUniqueIds.featureid = [...new Set(ctrl.agileManagerDetails[0].hpamBacklog.map(item => item.featureid.id))];
+                    ctrl.agileManagerUniqueIds.applicationid = [...new Set(ctrl.agileManagerDetails[0].hpamBacklog.map(item => item.applicationid.id))];
+                    ctrl.agileManagerUniqueIds.sprintid = [...new Set(ctrl.agileManagerDetails[0].hpamBacklog.map(item => item.sprintid.id))];
+                    ctrl.filterfeatures();
+                    ctrl.teamvelocity();
+                });
+
+
         }
 
         ctrl.open = function (url) {
