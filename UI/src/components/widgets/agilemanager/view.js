@@ -88,10 +88,17 @@
                 featureStrory.push({ id: unique, storyPoints: storyPoints });
             });
 
-
-
             ctrl.loadlinechart(featureStrory);
+        }
 
+        ctrl.teamvelocity = function () {
+
+            var estimatedVelocity = [];
+            ctrl.agileManagerDetails[0].hpamTeam.forEach((item, index) =>{
+                estimatedVelocity.push({name: item.name , velocity: item.estimatedvelocity })
+            });
+
+            ctrl.loadbarchart(estimatedVelocity);
         }
 
         $scope.$on('eventEmitedName', function (event, data) {
@@ -120,8 +127,9 @@
                     ctrl.agileManagerUniqueIds.themeid = [...new Set(ctrl.agileManagerDetails[0].hpamBacklog.map(item => item.themeid.id))];
                     ctrl.agileManagerUniqueIds.featureid = [...new Set(ctrl.agileManagerDetails[0].hpamBacklog.map(item => item.featureid.id))];
                     ctrl.agileManagerUniqueIds.applicationid = [...new Set(ctrl.agileManagerDetails[0].hpamBacklog.map(item => item.applicationid.id))];
-                    ctrl.agileManagerUniqueIds.applicationid = [...new Set(ctrl.agileManagerDetails[0].hpamBacklog.map(item => item.sprintid.id))];
+                    ctrl.agileManagerUniqueIds.sprintid = [...new Set(ctrl.agileManagerDetails[0].hpamBacklog.map(item => item.sprintid.id))];
                     ctrl.filterfeatures();
+                    ctrl.teamvelocity();
                 });
 
 
@@ -161,6 +169,44 @@
             };
 
             var ctx = document.getElementById('myChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'horizontalBar',
+                data: linechartdata,
+                options: {
+                    scales: {
+                        xAxes: [{
+
+                            stacked: true,
+
+                        }],
+                        yAxes: [{
+                            categorySpacing: 20,
+                            barThickness: 10,
+                            barPercentage: 0.5,
+                            stacked: true
+                        }]
+                    }
+                }
+            });
+        }
+
+        ctrl.loadbarchart = function (teamList) {
+            let data = [];
+            let lables = [];
+            teamList.forEach((item, index) => {
+                data.push(item.velocity);
+                lables.push(item.name);
+            });
+            var linechartdata = {
+                labels: lables,
+                datasets: [{
+                    label: "Estimated Velocity",
+                    data: data,
+                    backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"]
+                }],
+            };
+
+            var ctx = document.getElementById('barChart').getContext('2d');
             new Chart(ctx, {
                 type: 'horizontalBar',
                 data: linechartdata,
