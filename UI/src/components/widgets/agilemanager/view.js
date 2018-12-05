@@ -11,9 +11,10 @@
 
     AgileManagerWidgetViewController.$inject = ['$scope', 'hpamData', '$q', '$uibModal'];
     function AgileManagerWidgetViewController($scope, hpamData, $q, $uibModal) {
-        console.log(hpamData)
+
         var ctrl = this;
         var builds = [];
+        ctrl.teamfiltered = [];
         ctrl.agileManagerDetails = [];
         ctrl.backlogPieChart = [];
         ctrl.uniqueReleaseIds = [];
@@ -40,14 +41,18 @@
 
             ctrl.agileManagerDetails[0].hpamBacklog.forEach((item, index) => {
                 if (item.status == 'Done') {
-                    arr.push({ id: item.releaseid.id, status: 'Done' });
+                    arr.push({ id: item.releaseid ? item.releaseid.id : null, status: 'Done' });
                 }
                 else if (item.status == 'new') {
-                    arr.push({ id: item.releaseid.id, status: 'new' });
+                    arr.push({ id: item.releaseid ? item.releaseid.id : null, status: 'new' });
+                }
+                else if (item.status == 'In Progress') {
+                    arr.push({ id: item.releaseid ? item.releaseid.id : null, status: 'Inprogress' })
                 }
 
             });
-            var result = { id: 0, new: 0, Done: 0 };
+
+            var result = { id: 0, new: 0, Done: 0, Inprogress: 0 };
             arr.forEach((item) => {
                 if (item.id == releaseId) {
                     result.id = releaseId;
@@ -55,13 +60,13 @@
                 }
             });
 
-            ctrl.loadChart(result.Done, result.new);
+            ctrl.loadChart(result.Done, result.new, result.Inprogress);
         }
 
         ctrl.GetFilterBy = function (filterBy, value) {
 
             var filtered = ctrl.agileManagerDetails[0].hpamBacklog.filter(function (item) {
-                if(item[filterBy].id){
+                if (item[filterBy].id) {
                     return item[filterBy].id.toString().toLowerCase().indexOf(value) > -1;
                 }
                 else {
@@ -92,10 +97,10 @@
         }
 
         ctrl.teamvelocity = function () {
-
+           
             var estimatedVelocity = [];
-            ctrl.agileManagerDetails[0].hpamTeam.forEach((item, index) =>{
-                estimatedVelocity.push({name: item.name , velocity: item.estimatedvelocity })
+            ctrl.teamfiltered.forEach((item, index) => {
+                estimatedVelocity.push({ name: item.name, velocity: item.estimatedvelocity })
             });
 
             ctrl.loadbarchart(estimatedVelocity);
@@ -109,17 +114,17 @@
             var hex = "0123456789ABCDEF",
                 color = "#";
             for (var i = 1; i <= 6; i++) {
-              color += hex[Math.floor(Math.random() * 16)];
+                color += hex[Math.floor(Math.random() * 16)];
             }
             return color;
-          }
+        }
 
-        ctrl.loadChart = function (done, newvalue) {
+        ctrl.loadChart = function (done, newvalue, inprogress) {
             var pieData = {
-                labels: ["BackLogs(Done)", "BacklLogs(New)"],
+                labels: ["BackLogs(Done)", "BackLogs(New)", "BackLogs(WIP)"],
                 datasets: [{
-                    data: [done, newvalue],
-                    backgroundColor: ["#878BB6", "#FF8153"]
+                    data: [done, newvalue, inprogress],
+                    backgroundColor: ["#00ff00", "#878BB6", "#FF8153"]
                 }]
             };
 
@@ -211,7 +216,7 @@
                 }
             });
         }
-   
+
         ctrl.load = function () {
 
             //$scope.widgetConfig.options.workspaceid
@@ -221,16 +226,34 @@
                     ctrl.agileManagerDetails = angular.copy(data.data);
                     ctrl.copyAgileManagerDetails = angular.copy(data.data);
                     var filtered = ctrl.agileManagerDetails[0].hpamBacklog.filter(function (item) {
-                        return item.workspaceid.toString().toLowerCase().indexOf($scope.widgetConfig.options.workspaceid) > -1;
+                        return item.workspaceid == $scope.widgetConfig.options.workspaceid;
+                    });
+
+                    ctrl.teamfiltered = ctrl.agileManagerDetails[0].hpamTeam.filter(function (item) {
+                        return item.workspaceid == $scope.widgetConfig.options.workspaceid;
                     });
 
                     ctrl.agileManagerDetails[0].hpamBacklog = angular.copy(filtered);
                     ctrl.copyAgileManagerDetails[0].hpamBacklog = angular.copy(filtered);
 
-                    ctrl.uniqueReleaseIds = [...new Set(ctrl.agileManagerDetails[0].hpamBacklog.map(item => item.releaseid.id))];
+                    ctrl.uniqueReleaseIds = [...new Set(ctrl.agileManagerDetails[0].hpamBacklog.map(item => {
+                        if (item.releaseid && item.releaseid.id) {
+                            return item.releaseid.id;
+                        }
+                    }
+                    ))];
 
-                    ctrl.agileManagerUniqueIds.releaseid = [...new Set(ctrl.agileManagerDetails[0].hpamBacklog.map(item => item.releaseid.id))];
-                    ctrl.agileManagerUniqueIds.teamid = [...new Set(ctrl.agileManagerDetails[0].hpamBacklog.map(item => item.teamid.id))];
+                    ctrl.agileManagerUniqueIds.releaseid = [...new Set(ctrl.agileManagerDetails[0].hpamBacklog.map(item => {
+                        if (item.releaseid && item.releaseid.id) {
+                            return item.releaseid.id;
+                        }
+                    }
+                    ))];
+                    ctrl.agileManagerUniqueIds.teamid = [...new Set(ctrl.agileManagerDetails[0].hpamBacklog.map(item => {
+                        if (item.teamid && item.teamid.id) {
+                            return item.teamid.id;
+                        }
+                    } ))];
                     ctrl.agileManagerUniqueIds.themeid = [...new Set(ctrl.agileManagerDetails[0].hpamBacklog.map(item => item.themeid.id))];
                     ctrl.agileManagerUniqueIds.featureid = [...new Set(ctrl.agileManagerDetails[0].hpamBacklog.map(item => item.featureid.id))];
                     ctrl.agileManagerUniqueIds.applicationid = [...new Set(ctrl.agileManagerDetails[0].hpamBacklog.map(item => item.applicationid.id))];
