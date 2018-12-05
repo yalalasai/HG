@@ -79,14 +79,18 @@
         }
 
         ctrl.filterfeatures = function () {
-            ctrl.uniquefeatureIds = [...new Set(ctrl.agileManagerDetails[0].hpamBacklog.map(item => item.featureid.id))];
-
+            ctrl.uniquefeatureIds = [...new Set(ctrl.agileManagerDetails[0].hpamBacklog.map(item => {
+                if (item.featureid != null || "" ){
+                    return item.featureid.id;
+                }
+            }))];
+            
             var featureStrory = [];
 
             ctrl.uniquefeatureIds.forEach((unique, uniqIndex) => {
                 var storyPoints = 0;
                 ctrl.agileManagerDetails[0].hpamBacklog.forEach((item, index) => {
-                    if (unique == item.featureid.id) {
+                    if (item.featureid != null && unique == item.featureid.id ) {
                         storyPoints = Number(storyPoints) + Number(item.storypoints);
                     }
                 });
@@ -250,14 +254,31 @@
                     }
                     ))];
                     ctrl.agileManagerUniqueIds.teamid = [...new Set(ctrl.agileManagerDetails[0].hpamBacklog.map(item => {
-                        if (item.teamid && item.teamid.id) {
+                        if (item.teamid && item.teamid.id){
                             return item.teamid.id;
                         }
+                    }))];
+                    ctrl.agileManagerUniqueIds.themeid = [...new Set(ctrl.agileManagerDetails[0].hpamBacklog.map(item => {
+                        if (item.themeid && item.themeid.id){
+                            return item.themeid.id;
+                        }
                     } ))];
-                    ctrl.agileManagerUniqueIds.themeid = [...new Set(ctrl.agileManagerDetails[0].hpamBacklog.map(item => item.themeid.id))];
-                    ctrl.agileManagerUniqueIds.featureid = [...new Set(ctrl.agileManagerDetails[0].hpamBacklog.map(item => item.featureid.id))];
-                    ctrl.agileManagerUniqueIds.applicationid = [...new Set(ctrl.agileManagerDetails[0].hpamBacklog.map(item => item.applicationid.id))];
-                    ctrl.agileManagerUniqueIds.sprintid = [...new Set(ctrl.agileManagerDetails[0].hpamBacklog.map(item => item.sprintid.id))];
+                    ctrl.agileManagerUniqueIds.featureid = [...new Set(ctrl.agileManagerDetails[0].hpamBacklog.map(item => {
+                        if (item.featureid && item.featureid.id){
+                            return item.featureid.id;
+                        }
+                    }))];
+                    ctrl.agileManagerUniqueIds.applicationid = [...new Set(ctrl.agileManagerDetails[0].hpamBacklog.map(item => {
+                        if (item.applicationid && item.applicationid.id){
+                            return item.applicationid.id;
+                        }
+                    }
+                    ))];
+                    ctrl.agileManagerUniqueIds.sprintid = [...new Set(ctrl.agileManagerDetails[0].hpamBacklog.map(item => {
+                        if (item.sprintid && item.sprintid.id){
+                            return item.sprintid.id;
+                        }
+                    }))];
                     ctrl.filterfeatures();
                     ctrl.teamvelocity();
                 });
