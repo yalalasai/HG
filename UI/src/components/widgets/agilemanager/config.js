@@ -76,8 +76,8 @@
                     },
                     componentId: modalData.dashboard.application.components[0].id
                 };
-
                 
+                                
                 // pass this new config to the modal closing so it's saved
                 $uibModalInstance.close(postObj);
             }
