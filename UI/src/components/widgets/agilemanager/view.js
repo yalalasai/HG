@@ -19,6 +19,7 @@
         ctrl.backlogPieChart = [];
         ctrl.uniqueReleaseIds = [];
         ctrl.selectedReleaseId = 0;
+        ctrl.selectedReleaseIdfeature = 0;
         ctrl.uniquefeatureIds = [];
         ctrl.agileManagerUniqueIds = {
             releaseid: [],
@@ -28,6 +29,7 @@
             applicationid: [],
             sprintid: [],
             selectedreleaseId: '',
+            selectedReleaseIdfeature: '',
             selectedteam: '',
             selectedtheme: '',
             selectedfeature: '',
@@ -78,13 +80,14 @@
 
         }
 
-        ctrl.filterfeatures = function () {
+        ctrl.filterfeatures = function (releaseId) {
+
             ctrl.uniquefeatureIds = [...new Set(ctrl.agileManagerDetails[0].hpamBacklog.map(item => {
-                if (item.featureid != null || "" ){
+                if (item.releaseid != null && item.releaseid.id == releaseId && item.featureid != null || "" ){
                     return item.featureid.id;
                 }
             }))];
-            
+            console.log(ctrl.uniquefeatureIds);
             var featureStrory = [];
 
             ctrl.uniquefeatureIds.forEach((unique, uniqIndex) => {

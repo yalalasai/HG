@@ -13,14 +13,14 @@
 
     <div id="left" style="float:right; width: 50%;height:70%" >
         <label style="text-align:center;width: 100%">Feature - Storypoints Status</label>
-        <div class="form-group">
-            <label style="text-align:center" style="visibility:hidden"></label>
-            <select 
-                class="form-control col-2" style="visibility:hidden">
-                <option></option>
+        <div class="form-group" style="width:120px">
+            <label>Select Release ID</label>
+            <select ng-model="agileManagerView.selectedReleaseIdfeature" ng-change="agileManagerView.filterfeatures(agileManagerView.selectedReleaseIdfeature)"
+                class="form-control col-2">
+                <option ng-repeat="item in agileManagerView.uniqueReleaseIds" value="{{item}}">{{item}}</option>
             </select>
         </div>
-        <canvas id="myChart"></canvas>
+        <canvas ng-show="agileManagerView.selectedReleaseIdfeature != 0" id="myChart"></canvas>
     </div> 
 
 </div>
