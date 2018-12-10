@@ -79,7 +79,7 @@
                 </th>
 
                 <th class="server-count align-left">Sprint
-                    <select ng-model="agileManagerView.agileManagerUniqueIds.selectedapplication" ng-change="agileManagerView.GetFilterBy('sprintid',agileManagerView.agileManagerUniqueIds.selectedsprint)" autofocus>
+                    <select ng-model="agileManagerView.agileManagerUniqueIds.selectedsprint" ng-change="agileManagerView.GetFilterBy('sprintid',agileManagerView.agileManagerUniqueIds.selectedsprint)" autofocus>
                             <option value="">All</option>
                         <option ng-repeat="item in agileManagerView.agileManagerUniqueIds.sprintid" value="{{item}}">{{item}}</option>
                     </select>
