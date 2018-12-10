@@ -87,7 +87,7 @@
                     return item.featureid.id;
                 }
             }))];
-            console.log(ctrl.uniquefeatureIds);
+            //console.log(ctrl.uniquefeatureIds);
             var featureStrory = [];
 
             ctrl.uniquefeatureIds.forEach((unique, uniqIndex) => {
