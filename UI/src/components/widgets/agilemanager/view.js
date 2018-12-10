@@ -68,7 +68,7 @@
         ctrl.GetFilterBy = function (filterBy, value) {
 
             var filtered = ctrl.agileManagerDetails[0].hpamBacklog.filter(function (item) {
-                if (item[filterBy].id) {
+                if (item[filterBy] != null) {
                     return item[filterBy].id.toString().toLowerCase().indexOf(value) > -1;
                 }
                 else {
