@@ -10,18 +10,12 @@ public class HPAMData extends BaseModel{
 	HPAMData(){
 		
 	}
-	private List<HPAMApplication> hpamApplication = new ArrayList<>();
 	private List<HPAMBacklog> hpamBacklog = new ArrayList<>();
+	private List<HPAMFeature> hpamFeature = new ArrayList<>();
 	private List<HPAMRelease> hpamRelease = new ArrayList<>();
 	private List<HPAMTeam> hpamTeam = new ArrayList<>();
 	private List<HPAMWorkSpace> hpamWorkSpace = new ArrayList<>();
-	
-	public List<HPAMApplication> getHpamApplication() {
-		return hpamApplication;
-	}
-	public void setHpamApplication(List<HPAMApplication> hpamApplication) {
-		this.hpamApplication = hpamApplication;
-	}
+
 	
 	public List<HPAMBacklog> getHpamBacklog() {
 		return hpamBacklog;
@@ -30,6 +24,12 @@ public class HPAMData extends BaseModel{
 		this.hpamBacklog = hpamBacklog;
 	}
 	
+	public List<HPAMFeature> getHpamFeature() {
+		return hpamFeature;
+	}
+	public void setHpamFeature(List<HPAMFeature> hpamFeature) {
+		this.hpamFeature = hpamFeature;
+	}
 	public List<HPAMRelease> getHpamRelease() {
 		return hpamRelease;
 	}
@@ -51,14 +51,14 @@ public class HPAMData extends BaseModel{
 		this.hpamWorkSpace = hpamWorkSpace;
 	}
 	
-	public HPAMData(List<HPAMApplication> hpamApplication,
+	public HPAMData(List<HPAMFeature> hpamFeature,
 			    	List<HPAMBacklog> hpamBacklog,
 					List<HPAMRelease> hpamRelease,
 					List<HPAMTeam> hpamTeam,
 					List<HPAMWorkSpace> hpamWorkSpace) {
 		super();
-		this.hpamApplication= hpamApplication;
 		this.hpamBacklog = hpamBacklog;
+		this.hpamFeature= hpamFeature;
 		this.hpamRelease = hpamRelease;
 		this.hpamTeam = hpamTeam;
 		this.hpamWorkSpace = hpamWorkSpace;
@@ -66,7 +66,7 @@ public class HPAMData extends BaseModel{
 	
 	@Override
 	public String toString() {
-		return "hpamApplication=" + hpamApplication +
+		return "hpamFeature=" + hpamFeature +
 			   "hpamBacklog=" + hpamBacklog+
 			   "hpamRelease=" + hpamRelease +
 			   "hpamTeam=" + hpamTeam +

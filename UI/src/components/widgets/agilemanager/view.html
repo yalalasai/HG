@@ -1,4 +1,4 @@
-<div id="chart-container" style="width:100%;height:80%">
+<!-- <div id="chart-container" style="width:100%;height:80%">
 
     <div class="col-6" id="right" style="float:left; width: 50%;height:70%;"">
         <label style="text-align:center;width: 100%">Team - Estimated Velocity</label>
@@ -23,9 +23,9 @@
         <canvas ng-show="agileManagerView.selectedReleaseIdfeature != 0" id="myChart"></canvas>
     </div> 
 
-</div>
+</div> -->
 
-<div id="left" style="width:600px; margin:0 auto;">
+<!-- <div id="left" style="width:600px; margin:0 auto;">
         <label style="text-align:center;width: 100%">Release ID Backlog Status</label>
         <div class="form-group" style="width:120px">
             <label>Select Release ID</label>
@@ -35,106 +35,68 @@
             </select>
         </div>
         <canvas ng-show="agileManagerView.selectedReleaseId != 0" id="pie-chart" ></canvas>
-    </div>
+    </div> -->
+<style>
+    #table-wrapper {
+        position: relative;
+    }
 
+    #table-scroll {
+        height: 150px;
+        overflow: auto;
+        margin-top: 20px;
+    }
 
-<div style="margin-top:10px">
-    <table class="table">
-        <thead>
-            <tr class="dash-row ">
+    #table-wrapper table {
+        width: 100%;
 
-                <th class="server-count align-left">ID</th>
-                <th class="server-count align-left">Name</th>
-                <th class="server-count align-left">StoryPoints</th>
-                <th class="server-count align-left">Status</th>
-                <th class="server-count align-left">Release
-                    <select ng-model="agileManagerView.agileManagerUniqueIds.selectedreleaseId" ng-change="agileManagerView.GetFilterBy('releaseid',agileManagerView.agileManagerUniqueIds.selectedreleaseId)" autofocus>
+    }
+</style>
+
+<div id="table-wrapper">
+    <div id="table-scroll">
+        <div style="width:390px; margin:0 ">
+            <table class=" table">
+                <thead>Feature Status
+                    <tr class="dash-row ">
+
+                        <th class="server-count align-left">Name</th>
+                        <th class="server-count align-left">Done</th>
+                        <th class="server-count align-left">New</th>
+                        <th class="server-count align-left">In-Progress
+                            <!-- <select ng-model="agileManagerView.agileManagerUniqueIds.selectedreleaseId" ng-change="agileManagerView.GetFilterBy('releaseid',agileManagerView.agileManagerUniqueIds.selectedreleaseId)" autofocus>
                         <option value="">All</option>
                         <option ng-repeat="item in agileManagerView.agileManagerUniqueIds.releaseid" value="{{item}}">{{item}}</option>
-                    </select>
-                </th>
-                <th class="server-count align-left">Team
-                    <select ng-model="agileManagerView.agileManagerUniqueIds.selectedteam" ng-change="agileManagerView.GetFilterBy('teamid',agileManagerView.agileManagerUniqueIds.selectedteam)" autofocus>
-                            <option value="">All</option>
-                        <option ng-repeat="item in agileManagerView.agileManagerUniqueIds.teamid" value="{{item}}">{{item}}</option>
-                    </select>
-                </th>
-                <th class="server-count align-left">Theme
-                    <select ng-model="agileManagerView.agileManagerUniqueIds.selectedtheme" ng-change="agileManagerView.GetFilterBy('themeid',agileManagerView.agileManagerUniqueIds.selectedtheme)" autofocus>
-                            <option value="">All</option>
-                        <option ng-repeat="item in agileManagerView.agileManagerUniqueIds.themeid" value="{{item}}">{{item}}</option>
-                    </select>
-                </th>
-                <th class="server-count align-left">Feature
-                    <select ng-model="agileManagerView.agileManagerUniqueIds.selectedfeature" ng-change="agileManagerView.GetFilterBy('featureid',agileManagerView.agileManagerUniqueIds.selectedfeature)" autofocus>
-                            <option value="">All</option>
-                        <option ng-repeat="item in agileManagerView.agileManagerUniqueIds.featureid" value="{{item}}">{{item}}</option>
-                    </select>
-                </th>
-                <th class="server-count align-left">Application
-                    <select ng-model="agileManagerView.agileManagerUniqueIds.selectedapplication" ng-change="agileManagerView.GetFilterBy('applicationid',agileManagerView.agileManagerUniqueIds.selectedapplication)" autofocus>
-                            <option value="">All</option>
-                        <option ng-repeat="item in agileManagerView.agileManagerUniqueIds.applicationid" value="{{item}}">{{item}}</option>
-                    </select>
-                </th>
+                    </select> -->
+                        </th>
+                    </tr>
+                </thead>
 
-                <th class="server-count align-left">Sprint
-                    <select ng-model="agileManagerView.agileManagerUniqueIds.selectedsprint" ng-change="agileManagerView.GetFilterBy('sprintid',agileManagerView.agileManagerUniqueIds.selectedsprint)" autofocus>
-                            <option value="">All</option>
-                        <option ng-repeat="item in agileManagerView.agileManagerUniqueIds.sprintid" value="{{item}}">{{item}}</option>
-                    </select>
-                </th>
+                <tbody>
+                    <tr class="dash-row clickable" ng-repeat="item in agileManagerView.copyAgileManagerDetails[0].hpamFeature">
 
-            </tr>
-        </thead>
+                        <td class="server-count align-left">
+                            {{item.featurename}}
 
-        <tbody>
-            <tr class="dash-row clickable" ng-repeat="item in agileManagerView.copyAgileManagerDetails[0].hpamBacklog">
+                        </td>
 
-                <td class="server-count align-left">
-                    {{item.backlogid}}
+                        <td class="server-count align-left">
+                            {{item.status.Done}}
 
-                </td>
+                        </td>
 
-                <td class="server-count align-left">
-                    {{item.name}}
+                        <td class="server-count align-left">
+                            {{item.status.New}}
 
-                </td>
+                        </td>
+                        <td class="server-count align-left">
+                            {{item.status.InProgress}}
 
-                <td class="server-count align-left">
-                    {{item.storypoints}}
+                        </td>
 
-                </td>
-                <td class="server-count align-left">
-                    {{item.status}}
-
-                </td>
-
-                <td class="server-count" >
-                    {{item.releaseid.name}}
-                </td>
-                <td class="server-count align-left" >
-                    {{item.teamid.name}}
-
-                </td>
-                <td class="server-count align-left">
-                    {{item.themeid.id}}
-
-                </td>
-                <td class="server-count align-left">
-                    {{item.featureid.id}}
-
-                </td>
-
-                <td class="server-count align-left">
-                    {{item.applicationid.name}}
-                </td>
-
-                <td class="server-count align-left">
-                    {{item.sprintid.id}}
-                </td>
-
-            </tr>
-        </tbody>
-    </table>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>

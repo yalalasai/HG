@@ -11,9 +11,15 @@
         var ctrl = this,
         widgetConfig = modalData.widgetConfig;
         ctrl.selectedworkspaceIds = null;
+        ctrl.selectreleaseIds = null;
+        ctrl.selectreleaseNames = null;
         ctrl.agileManagerUniqueIds = {
             workspaceid: [],
-            selectedworkspaceIds: ''
+            selectedworkspaceIds: '',
+            releaseid: [],
+            selectreleaseIds: '',
+            releasename: [],
+            selectreleaseNames: ''
         };
         
 
@@ -30,10 +36,14 @@
         ctrl.load = function () {
             hpamData.details(widgetConfig.options.id).
                 then(function (data) {
-                    ctrl.agileManagerUniqueIds.workspaceid = [...new Set(data.data[0].hpamWorkSpace.map(item => item.workspaceid))];                
-                });
+                    //ctrl.agileManagerUniqueIds.workspaceid = [...new Set(data.data[0].hpamFeature.map(item => item.workspacename))]; 
+                    ctrl.agileManagerUniqueIds.releaseid = [...new Set(data.data[0].hpamFeature.map(item => item.releaseid))];               
+                })
             };
+            
 
+        
+        
  
         //loadSavedBuildJob();
         // set values from config
@@ -72,7 +82,7 @@
                     name: 'agilemanager',
                     options: {
                         id: widgetConfig.options.id,
-                        workspaceid: ctrl.selectedworkspaceIds
+                        releaseid: ctrl.selectreleaseIds
                     },
                     componentId: modalData.dashboard.application.components[0].id
                 };

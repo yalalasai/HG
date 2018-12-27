@@ -11,12 +11,12 @@
 
     MendixBuildWidgetViewController.$inject = ['$scope', 'mendixData', '$q', '$uibModal'];
     function MendixBuildWidgetViewController($scope, mendixData, $q, $uibModal) {
-debugger;
+
         var ctrl = this;
         var builds = [];
         ctrl.mendixBuildDetails=[];
         ctrl.load = function () {
-            debugger;
+        
            // var deferred = $q.defer();
             mendixData.details($scope.widgetConfig.componentId).
             then(function (data) {

@@ -5,14 +5,29 @@
             <!-- <label class="modal-label">Select WorkSpace Id</label>
                <select class="form-control" id="sel1">
                    
-            </select> -->
+            </select> 
             <div class="form-group" style="width:400px">
-                <label>Select WorkSpace ID</label>
+                <label>Select WorkSpace Name</label>
                 <select ng-model="agilemanagerConfig.selectedworkspaceIds" ng-change="agilemanagerConfig.onChnageReleaseId(agilemanagerConfig.selectedReleaseId)"
                     class="form-control col-2">
                     <option ng-repeat="item in agilemanagerConfig.agileManagerUniqueIds.workspaceid" value="{{item}}">{{item}}</option>
                 </select>
-            </div> 
+            </div> -->
+
+            <div class="form-group" style="width:400px">
+                <label>Select Release Name</label>
+                <select ng-model="agilemanagerConfig.selectreleaseIds" 
+                    class="form-control col-2">
+                    <option ng-repeat="item in agilemanagerConfig.agileManagerUniqueIds.releaseid" value="{{item}}">{{item}}</option>
+                </select>
+            </div>
+            
+            <div class="form-group" style="width:400px">
+                <label>Set Expected Velocity</label>
+                <select 
+                class="form-control col-2">
+                    </select>
+            </div>
         </form-group>
 <!--
         <form-group class="text-center" input="buildDurationThreshold" errors="{required:'Build threshold is required', pattern: 'Please enter a number'}">

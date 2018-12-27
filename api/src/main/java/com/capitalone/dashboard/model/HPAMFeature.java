@@ -1,38 +1,56 @@
-package com.capitalone.dashboard.model; 
+package com.capitalone.dashboard.model;
 
-public class HPAMApplication {
-	
-	private String type;
-	private int appid;
-	private String description;
-	private String name;
-	
-	public String getType() {
-		return type;
-	}
-	public void setType(String type) {
-		this.type = type;
-	}
+public class HPAMFeature {
 
-	public int getAppid() {
-		return appid;
+	private String workspaceid;
+	private Object status;
+	private String releasename;
+	private String featureid;
+	private String workspacename;
+	private String featurename;
+	private String releaseid;
+	public String getWorkspaceid() {
+		return workspaceid;
 	}
-	public void setAppid(int appid) {
-		this.appid = appid;
+	public void setWorkspaceid(String workspaceid) {
+		this.workspaceid = workspaceid;
 	}
-	
-	public String getDescription() {
-		return description;
+	public Object getStatus() {
+		return status;
 	}
-	public void setDescription(String description) {
-		this.description = description;
+	public void setStatus(Object status) {
+		this.status = status;
 	}
-	public String getName() {
-		return name;
+	public String getReleasename() {
+		return releasename;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setReleasename(String releasename) {
+		this.releasename = releasename;
 	}
-	
+	public String getFeatureid() {
+		return featureid;
+	}
+	public void setFeatureid(String featureid) {
+		this.featureid = featureid;
+	}
+	public String getWorkspacename() {
+		return workspacename;
+	}
+	public void setWorkspacename(String workspacename) {
+		this.workspacename = workspacename;
+	}
+	public String getFeaturename() {
+		return featurename;
+	}
+	public void setFeaturename(String featurename) {
+		this.featurename = featurename;
+	}
+	public String getReleaseid() {
+		return releaseid;
+	}
+	public void setReleaseid(String releaseid) {
+		this.releaseid = releaseid;
+	}
 	
 }
+	
