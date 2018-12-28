@@ -1,72 +1,71 @@
 package com.capitalone.dashboard.model;
 
 public class HPAMRelease {
-	private String name;
+
+	private String workspaceid;
+	private Object status;
+	private String releasename;
 	private String enddate;
-	private String sprintdurationunits;
-	private int releaseid;
-	private String type;
-	private String description;
-	private String startate;
-	private int sprintduration;
-	private String lastmodified;
+	private String workspacename;
+	private String startdate;
+	private String releaseid;
+	private int remainingSP;
+	private String today;
 	
-	public String getName() {
-		return name;
+	public int getRemainingSP() {
+		return remainingSP;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setRemainingSP(int remainingSP) {
+		this.remainingSP = remainingSP;
 	}
-	public String getEnddate() {
+	public String getToday() {
+		return today;
+	}
+	public void setToday(String today) {
+		this.today = today;
+	}
+	public String getWorkspaceid() {
+		return workspaceid;
+	}
+	public void setWorkspaceid(String workspaceid) {
+		this.workspaceid = workspaceid;
+	}
+	public Object getStatus() {
+		return status;
+	}
+	public void setStatus(Object status) {
+		this.status = status;
+	}
+	public String getReleasename() {
+		return releasename;
+	}
+	public void setReleasename(String releasename) {
+		this.releasename = releasename;
+	}
+	public String getenddate() {
 		return enddate;
 	}
-	public void setEnddate(String enddate) {
+	public void setenddate(String enddate) {
 		this.enddate = enddate;
 	}
-	public String getSprintdurationunits() {
-		return sprintdurationunits;
+	public String getWorkspacename() {
+		return workspacename;
 	}
-	public void setSprintdurationunits(String sprintdurationunits) {
-		this.sprintdurationunits = sprintdurationunits;
+	public void setWorkspacename(String workspacename) {
+		this.workspacename = workspacename;
 	}
-	public int getReleaseid() {
+	public String getstartdate() {
+		return startdate;
+	}
+	public void setstartdate(String startdate) {
+		this.startdate = startdate;
+	}
+	public String getReleaseid() {
 		return releaseid;
 	}
-	public void setReleaseid(int releaseid) {
+	public void setReleaseid(String releaseid) {
 		this.releaseid = releaseid;
 	}
-	public String getType() {
-		return type;
-	}
-	public void setType(String type) {
-		this.type = type;
-	}
-	public String getDescription() {
-		return description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	public String getStartate() {
-		return startate;
-	}
-	public void setStartate(String startate) {
-		this.startate = startate;
-	}
-	public int getSprintduration() {
-		return sprintduration;
-	}
-	public void setSprintduration(int sprintduration) {
-		this.sprintduration = sprintduration;
-	}
-	public String getLastmodified() {
-		return lastmodified;
-	}
-	public void setLastmodified(String lastmodified) {
-		this.lastmodified = lastmodified;
-	}
-	
-	
-	
 	
 }
+	

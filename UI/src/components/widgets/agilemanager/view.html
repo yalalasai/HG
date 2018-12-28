@@ -37,66 +37,120 @@
         <canvas ng-show="agileManagerView.selectedReleaseId != 0" id="pie-chart" ></canvas>
     </div> -->
 <style>
-    #table-wrapper {
-        position: relative;
+    table.scroll {    
+    border-spacing: 0;
     }
 
-    #table-scroll {
-        height: 150px;
-        overflow: auto;
-        margin-top: 20px;
+    table.scroll tbody,
+    table.scroll thead { display: block; }
+
+    thead tr th { 
+    height: 30px;
+    line-height: 30px;
+    /* text-align: left; */
     }
 
-    #table-wrapper table {
-        width: 100%;
-
+    table.scroll tbody {
+    height: 100px;
+    overflow-y: auto;
+    overflow-x: hidden;
     }
+
+    tbody td:last-child, thead th:last-child {
+    border-right: none;
+    }
+    .button {
+  background-color: DodgerBlue;
+  border: none;
+  color: white;
+  text-align: center;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
 </style>
+<div class="feature-view" style="width:390px; margin:0 " >
 
-<div id="table-wrapper">
-    <div id="table-scroll">
-        <div style="width:390px; margin:0 ">
-            <table class=" table">
-                <thead>Feature Status
-                    <tr class="dash-row ">
-
-                        <th class="server-count align-left">Name</th>
-                        <th class="server-count align-left">Done</th>
-                        <th class="server-count align-left">New</th>
-                        <th class="server-count align-left">In-Progress
-                            <!-- <select ng-model="agileManagerView.agileManagerUniqueIds.selectedreleaseId" ng-change="agileManagerView.GetFilterBy('releaseid',agileManagerView.agileManagerUniqueIds.selectedreleaseId)" autofocus>
-                        <option value="">All</option>
-                        <option ng-repeat="item in agileManagerView.agileManagerUniqueIds.releaseid" value="{{item}}">{{item}}</option>
-                    </select> -->
-                        </th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    <tr class="dash-row clickable" ng-repeat="item in agileManagerView.copyAgileManagerDetails[0].hpamFeature">
-
-                        <td class="server-count align-left">
-                            {{item.featurename}}
-
-                        </td>
-
-                        <td class="server-count align-left">
-                            {{item.status.Done}}
-
-                        </td>
-
-                        <td class="server-count align-left">
-                            {{item.status.New}}
-
-                        </td>
-                        <td class="server-count align-left">
-                            {{item.status.InProgress}}
-
-                        </td>
-
-                    </tr>
-                </tbody>
-            </table>
+        <div class="widget-body">
+				<div class="col-xs-9.5 text-standard-sm dash-overflow " ng-repeat="item in agileManagerView.copyAgileManagerDetails[0].hpamRelease" >
+                    Project: <em>{{item.releasename}}</em>
+                </div>
+                <div class="col-xs-9.5 text-standard-sm dash-overflow">
+                    Team: <em>All</em>
+                </div>
+                <div style="text-align:right" >
+                        <button type="button" class="button" onclick="alert('Not yet working')">Release Burn Down Chart</button>
+                </div>
+            </div>
+            
+<div id="left" style="width:600px; margin:0;">
+    <label style="text-align:left;width: 100%">Release Status</label>
+    <div class="widget-body" fit-text=".build-summary-count > span" fit-text-max="40">
+            <div class="row" ng-repeat="item in agileManagerView.copyAgileManagerDetails[0].hpamRelease">
+                <div class="col-xs-4">
+                    <div class=" story-open">
+                        <span>{{item.status.New}}</span>
+                    </div>
+                    <div >New</div>
+                </div>
+                <div class="col-xs-2">
+                    <div class=" story-wip">
+                        <span>{{item.status.In_Progress}}</span>
+                    </div>
+                    <div >WIP</div>
+                </div>
+                <div class="col-xs-">
+                    <div class=" story-done">
+                        <span>{{item.status.Done}}</span>
+                    </div>
+                    <div >Done</div>
+                </div>
+            </div>
         </div>
+</div>
+<br>
+<div id="table-wrapper">
+    <div style="width:390px; margin:0 ">
+        <table class=" table scroll">
+            <thead><label>Feature Status</label>
+                <tr class="dash-row ">
+                    <th class="server-count align-left" width="80%">Name</th>
+                    <th class="server-count align-left" >Done</th>
+                    <th class="server-count align-left">New</th>
+                    <th class="server-count align-left" width="100%">WIP
+                            <!-- <select ng-model="agileManagerView.agileManagerUniqueIds.selectedreleaseId" ng-change="agileManagerView.GetFilterBy('releaseid',agileManagerView.agileManagerUniqueIds.selectedreleaseId)" autofocus>
+                    <option value="">All</option>
+                    <option ng-repeat="item in agileManagerView.agileManagerUniqueIds.releaseid" value="{{item}}">{{item}}</option>
+                </select>  -->
+                    </th>
+                </tr>
+            </thead> 
+
+            <tbody>
+                <tr class="dash-row clickable" ng-repeat="item in agileManagerView.copyAgileManagerDetails[0].hpamFeature">
+
+                    <td class="server-count align-left" width="60%" >
+                        {{item.featurename}}
+
+                    </td>
+
+                    <td class="server-count align-left">
+                        {{item.status.Done}}
+
+                    </td>
+
+                    <td class="server-count align-left">
+                        {{item.status.New}}
+
+                    </td>
+                    <td class="server-count align-left">
+                        {{item.status.InProgress}}
+
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
     </div>
+</div>
 </div>

@@ -10,11 +10,13 @@ public class HPAMData extends BaseModel{
 	HPAMData(){
 		
 	}
+	
 	private List<HPAMBacklog> hpamBacklog = new ArrayList<>();
-	private List<HPAMFeature> hpamFeature = new ArrayList<>();
 	private List<HPAMRelease> hpamRelease = new ArrayList<>();
 	private List<HPAMTeam> hpamTeam = new ArrayList<>();
+	private List<HPAMFeature> hpamFeature = new ArrayList<>();
 	private List<HPAMWorkSpace> hpamWorkSpace = new ArrayList<>();
+	
 
 	
 	public List<HPAMBacklog> getHpamBacklog() {

@@ -14,6 +14,7 @@
 
         var ctrl = this;
         var builds = [];
+        ctrl.openStoryPoints = [];
         ctrl.teamfiltered = [];
         ctrl.agileManagerDetails = [];
         ctrl.backlogPieChart = [];
@@ -37,7 +38,7 @@
             selectedsprint: ''
         };
         ctrl.copyAgileManagerDetails = [];
-        
+        ctrl.copyagileManagerDetails = [];
         // ctrl.onChangeReleaseId = function (releaseId) {
         //     var arr = [];
 
@@ -75,8 +76,18 @@
                     return null;
                 }
             });
+            
+            // var filtered2 = ctrl.agileManagerDetails[0].hpamRelease.filter(function (item) {
+            //     if (item[filterBy] != null) {
+            //         return item[filterBy].id.toString().toLowerCase().indexOf(value) > -1;
+            //     }
+            //     else {
+            //         return null;
+            //     }
+            // });
 
             ctrl.copyAgileManagerDetails[0].hpamBacklog = angular.copy(filtered);
+            
 
         }
 
@@ -231,19 +242,31 @@
             hpamData.details($scope.widgetConfig.componentId).
                 then(function (data) {
                     ctrl.agileManagerDetails = angular.copy(data.data);
-                    //console.log(ctrl.agileManagerDetails)
+                   // ctrl.openStoryPoints = angular.copy(data.data)
+
+                    //console.log(ctrl.openStoryPoints)
                     ctrl.copyAgileManagerDetails = angular.copy(data.data);
+                    //ctrl.copyopenStoryPoints = angular.copy(data.data);
+
                     var filtered = ctrl.agileManagerDetails[0].hpamFeature.filter(function (item) {
                         return item.releaseid == $scope.widgetConfig.options.releaseid;
                     });
-                    //console.log(filtered)
+
+                    var filtered2 = ctrl.agileManagerDetails[0].hpamRelease.filter(function (item) {
+                        return item.releaseid == $scope.widgetConfig.options.releaseid;
+                    });
+                    
                     // ctrl.teamfiltered = ctrl.agileManagerDetails[0].hpamTeam.filter(function (item) {
                     //     return item.workspaceid == $scope.widgetConfig.options.workspaceid;
                     // });
 
                     ctrl.agileManagerDetails[0].hpamFeature = angular.copy(filtered);
+                    ctrl.agileManagerDetails[0].hpamRelease=angular.copy(filtered2)
+                    
                     ctrl.copyAgileManagerDetails[0].hpamFeature = angular.copy(filtered);
-                    //console.log(ctrl.copyAgileManagerDetails[0].hpamFeature)
+                    ctrl.copyAgileManagerDetails[0].hpamRelease=angular.copy(filtered2)
+                   
+                    console.log(ctrl.copyAgileManagerDetails)
                     // ctrl.uniqueReleaseIds = [...new Set(ctrl.agileManagerDetails[0].hpamBacklog.map(item => {
                     //     if (item.releaseid && item.releaseid.id) {
                     //         return item.releaseid.id;
