@@ -311,5 +311,17 @@
         ctrl.open = function (url) {
             window.open(url);
         }
+
+        ctrl.showDetail = showDetail
+
+        function showDetail(item) {
+            $uibModal.open({
+                controller: 'AgileManagerDetailController',
+                controllerAs: 'detail',
+                templateUrl: 'components/widgets/agilemanager/detail.html',
+                size: 'lg'
+                
+            });
+        }
     }
 })();

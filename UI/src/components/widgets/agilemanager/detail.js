@@ -6,10 +6,10 @@
 
     angular
         .module(HygieiaConfig.module)
-        .controller('AgileManagerWidgetDetailController', AgileManagerWidgetDetailController);
+        .controller('AgileManagerDetailController', AgileManagerDetailController);
 
-        AgileManagerWidgetDetailController.$inject = ['$scope', '$uibModalInstance', 'collectorName', 'collectorNiceName'];
-    function AgileManagerWidgetDetailController($scope, $uibModalInstance,  collectorName, collectorNiceName) {
+        AgileManagerDetailController.$inject = [ '$uibModalInstance', 'collectorName', 'collectorNiceName'];
+    function AgileManagerDetailController($uibModalInstance,  collectorName, collectorNiceName) {
         var ctrl = this;
 
         ctrl.collectorName = collectorName;

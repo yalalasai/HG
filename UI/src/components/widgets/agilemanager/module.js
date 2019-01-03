@@ -16,6 +16,7 @@
                 controllerAs: 'agilemanagerConfig',
                 templateUrl: 'components/widgets/agilemanager/config.html'
             },
+           
             getState: getState,
             collectors: ['agilemanager']
         };
