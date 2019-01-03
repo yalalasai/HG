@@ -57,20 +57,20 @@
 </div>-->
 
  <div  >
-    <div style="width:390px; margin:0 ">
+    <div style="width:390px ;">
         <table class=" table scroll" >
             <thead>
                 <tr class="dash-row ">
-                    <th class="server-count align-left"width="57%">Package Name</th>
-                    <th class="server-count align-left">Version</th>
+                    <th class="server-count align-left"width="40%">Package Name</th>
+                    <th class="server-count align-left"width="20%">Version</th>
                     <th class="server-count align-left"width="1%">Status</th>
                 </tr>
             </thead> 
 
-            <tbody ng-repeat="x in mendixBuildView.mendixBuildDetails" style="height:390px; overflow:auto; margin:0">
+            <tbody ng-repeat="x in mendixBuildView.mendixBuildDetails" style=" height:300px; overflow:auto; margin:0">
                     <tr class="dash-row clickable" ng-repeat="environment in x.buildApiDetails">
     
-                        <td class="server-count align-left"width="58%">
+                        <td class="server-count align-left"width="45%">
                             {{environment.name}}
                         
                         </td>
