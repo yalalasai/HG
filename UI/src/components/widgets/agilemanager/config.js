@@ -36,10 +36,11 @@
         ctrl.load = function () {
             hpamData.details(widgetConfig.options.id).
                 then(function (data) {
+                    console.log(hpamData.details)
                     //ctrl.agileManagerUniqueIds.workspaceid = [...new Set(data.data[0].hpamFeature.map(item => item.workspacename))]; 
-                    ctrl.agileManagerUniqueIds.releaseid = [...new Set(data.data[0].hpamFeature.map(item => item.releaseid))];               
+                    ctrl.agileManagerUniqueIds.releaseid = [...new Set(data.data[0].hpamFeature.map(item => item.releaseid))];
                 })
-            };
+        };
             
 
         

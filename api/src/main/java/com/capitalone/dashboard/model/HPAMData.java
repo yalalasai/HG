@@ -11,21 +11,16 @@ public class HPAMData extends BaseModel{
 		
 	}
 	
-	private List<HPAMBacklog> hpamBacklog = new ArrayList<>();
+	private List<HPAMRBurn> hpamRBurn = new ArrayList<>();
 	private List<HPAMRelease> hpamRelease = new ArrayList<>();
-	private List<HPAMTeam> hpamTeam = new ArrayList<>();
 	private List<HPAMFeature> hpamFeature = new ArrayList<>();
-	private List<HPAMWorkSpace> hpamWorkSpace = new ArrayList<>();
 	
-
-	
-	public List<HPAMBacklog> getHpamBacklog() {
-		return hpamBacklog;
+	public List<HPAMRBurn> getHpamRBurn() {
+		return hpamRBurn;
 	}
-	public void setHpamBacklog(List<HPAMBacklog> hpamBacklog) {
-		this.hpamBacklog = hpamBacklog;
+	public void setHpamRBurn(List<HPAMRBurn> hpamRBurn) {
+		this.hpamRBurn = hpamRBurn;
 	}
-	
 	public List<HPAMFeature> getHpamFeature() {
 		return hpamFeature;
 	}
@@ -39,39 +34,22 @@ public class HPAMData extends BaseModel{
 		this.hpamRelease = hpamRelease;
 	}
 	
-	public List<HPAMTeam> getHpamTeam() {
-		return hpamTeam;
-	}
-	public void setHpamTeam(List<HPAMTeam> hpamTeam) {
-		this.hpamTeam = hpamTeam;
-	}
-	
-	public List<HPAMWorkSpace> getHpamWorkSpace() {
-		return hpamWorkSpace;
-	}
-	public void setHpamWorkSpace(List<HPAMWorkSpace> hpamWorkSpace) {
-		this.hpamWorkSpace = hpamWorkSpace;
-	}
-	
-	public HPAMData(List<HPAMFeature> hpamFeature,
-			    	List<HPAMBacklog> hpamBacklog,
-					List<HPAMRelease> hpamRelease,
-					List<HPAMTeam> hpamTeam,
-					List<HPAMWorkSpace> hpamWorkSpace) {
+	public HPAMData(List<HPAMRBurn> hpamRBurn,
+					List<HPAMFeature> hpamFeature,
+			    	List<HPAMRelease> hpamRelease)
+					 {
 		super();
-		this.hpamBacklog = hpamBacklog;
+		this.hpamRBurn= hpamRBurn;
 		this.hpamFeature= hpamFeature;
 		this.hpamRelease = hpamRelease;
-		this.hpamTeam = hpamTeam;
-		this.hpamWorkSpace = hpamWorkSpace;
+		
 	}
 	
 	@Override
 	public String toString() {
 		return "hpamFeature=" + hpamFeature +
-			   "hpamBacklog=" + hpamBacklog+
-			   "hpamRelease=" + hpamRelease +
-			   "hpamTeam=" + hpamTeam +
-			   "hpamWorkSpace=" + hpamWorkSpace ;
+			   "hpamRBurn=" + hpamRBurn+
+			   "hpamRelease=" + hpamRelease;
+			   
 	}
 }
