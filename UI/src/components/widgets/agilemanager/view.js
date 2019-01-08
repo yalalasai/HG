@@ -75,15 +75,15 @@
                 else {
                     return null;
                 }
-            });
+            });}
 
         ctrl.DateAndRemainingSP = function(){
             var tdasp = [];
             ctrl.agileManagerDetails[0].hpamRBurn.forEach((item)=>{
               sd = item.startdate;
               ed = item.enddate;
-              tdasp.push({ today :item.today, storypoints :item.remainingSP})})
-              ctrl.loadlinechart(featureStrory);
+              tdasp.push({ date :item.today, storypoints :item.remainingSP})})
+              //ctrl.loadgraph(sd,ed,tdasp);
 
             }
             // var filtered2 = ctrl.agileManagerDetails[0].hpamRelease.filter(function (item) {
@@ -98,7 +98,7 @@
             //ctrl.copyAgileManagerDetails[0].hpamBacklog = angular.copy(filtered);
             
 
-        }
+        
 
         // ctrl.filterfeatures = function (releaseId) {
 
@@ -146,22 +146,22 @@
             return color;
         }
 
-        // ctrl.loadChart = function (done, newvalue, inprogress) {
-        //     var pieData = {
-        //         labels: ["BackLogs(Done)", "BackLogs(New)", "BackLogs(WIP)"],
-        //         datasets: [{
-        //             data: [done, newvalue, inprogress],
-        //             backgroundColor: ["#00ff00", "#878BB6", "#FF8153"]
-        //         }]
-        //     };
+        //  ctrl.loadChart = function (done, newvalue, inprogress) {
+        //      var pieData = {
+        //          labels: ["BackLogs(Done)", "BackLogs(New)", "BackLogs(WIP)"],
+        //          datasets: [{
+        //              data: [done, newvalue, inprogress],
+        //              backgroundColor: ["#00ff00", "#878BB6", "#FF8153"]
+        //          }]
+        //      };
 
-        //     // Get the context of the canvas element we want to select
-        //     var piechart = document.getElementById("pie-chart").getContext("2d");
-        //     new Chart(piechart, {
-        //         type: 'pie',
-        //         data: pieData
-        //     });
-        // }
+        //      // Get the context of the canvas element we want to select
+        //      var piechart = document.getElementById("pie-chart").getContext("2d");
+        //      new Chart(piechart, {
+        //          type: 'pie',
+        //          data: pieData
+        //      });
+        //  }
 
         // ctrl.loadlinechart = function (featuresList) {
         //     let data = [];
@@ -243,9 +243,37 @@
         //         }
         //     });
         // }
-        ctrl.graph = function(){
+        ctrl.loadgraph = function (sd, ed, tdasp) {
+            let data = [];
+            let lables = [];
+            let colors = [];
+            // tdasp.forEach((item, index) => {
+            //     data.push(item.storypoints);
+            //     lables.push(item.date);
+            //     //         colors.push(getRandomColorHex());
+            // });
+            var ctx = document.getElementById('myChart').getContext('2d');
+            new Chart(ctx, {
+                // The type of chart we want to create
+                type: 'line',
+
+                // The data for our dataset
+                data: {
+                    labels: ["January", "February", "March", "April", "May", "June", "July"],
+                    datasets: [{
+                        label: "My First dataset",
+                        // backgroundColor: 'rgb(255, 99, 132)',
+                        borderColor: 'rgb(255, 99, 132)',
+                        data: [0, 10, 5, 2, 20, 30, 45],
+                    }]
+                },
+
+                // Configuration options go here
+                options: {}
+            });
 
         }
+
         ctrl.load = function () {
 
             //$scope.widgetConfig.options.workspaceid
@@ -317,6 +345,8 @@
                     // }))];
                     // ctrl.filterfeatures();
                     // ctrl.teamvelocity();
+                    ctrl.loadgraph();
+                   
                 });
 
 
