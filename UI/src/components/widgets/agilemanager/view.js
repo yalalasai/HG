@@ -75,63 +75,24 @@
                 else {
                     return null;
                 }
-            });}
+            });
+        }
 
-        ctrl.DateAndRemainingSP = function(){
+        ctrl.DateAndRemainingSP = function () {
             var tdasp = [];
-            ctrl.agileManagerDetails[0].hpamRBurn.forEach((item)=>{
-              sd = item.startdate;
-              ed = item.enddate;
-              tdasp.push({ date :item.today, storypoints :item.remainingSP})})
-              //ctrl.loadgraph(sd,ed,tdasp);
+            var sd, ed;
+            ctrl.agileManagerDetails[0].hpamRBurn.forEach((item) => {
+                sd = item.startdate;
+                ed = item.enddate;
+                tdasp.push({ date: item.today, storypoints: item.remainingSP })
 
-            }
-            // var filtered2 = ctrl.agileManagerDetails[0].hpamRelease.filter(function (item) {
-            //     if (item[filterBy] != null) {
-            //         return item[filterBy].id.toString().toLowerCase().indexOf(value) > -1;
-            //     }
-            //     else {
-            //         return null;
-            //     }
-            // });
+            })
+            // console.log(sd)
+            // console.log(ed)
+            // console.log(tdasp)
+            ctrl.loadlinechart(sd, ed, tdasp);
 
-            //ctrl.copyAgileManagerDetails[0].hpamBacklog = angular.copy(filtered);
-            
-
-        
-
-        // ctrl.filterfeatures = function (releaseId) {
-
-        //     ctrl.uniquefeatureIds = [...new Set(ctrl.agileManagerDetails[0].hpamBacklog.map(item => {
-        //         if (item.releaseid != null && item.releaseid.id == releaseId && item.featureid != null || "" ){
-        //             return item.featureid.id;
-        //         }
-        //     }))];
-        //     //console.log(ctrl.uniquefeatureIds);
-        //     var featureStrory = [];
-
-        //     ctrl.uniquefeatureIds.forEach((unique, uniqIndex) => {
-        //         var storyPoints = 0;
-        //         ctrl.agileManagerDetails[0].hpamBacklog.forEach((item, index) => {
-        //             if (item.featureid != null && unique == item.featureid.id ) {
-        //                 storyPoints = Number(storyPoints) + Number(item.storypoints);
-        //             }
-        //         });
-        //         featureStrory.push({ id: unique, storyPoints: storyPoints });
-        //     });
-
-        //     ctrl.loadlinechart(featureStrory);
-        // }
-
-        // ctrl.teamvelocity = function () {
-           
-        //     var estimatedVelocity = [];
-        //     ctrl.teamfiltered.forEach((item, index) => {
-        //         estimatedVelocity.push({ name: item.name, velocity: item.estimatedvelocity })
-        //     });
-
-        //     ctrl.loadbarchart(estimatedVelocity);
-        // }
+        }
 
         $scope.$on('eventEmitedName', function (event, data) {
             console.log('event fired');
@@ -163,116 +124,48 @@
         //      });
         //  }
 
-        // ctrl.loadlinechart = function (featuresList) {
-        //     let data = [];
-        //     let lables = [];
-        //     let colors = [];
-        //     featuresList.forEach((item, index) => {
-        //         data.push(item.storyPoints);
-        //         lables.push(`feature-${item.id}`);
-        //         colors.push(getRandomColorHex())
-        //     });
+         ctrl.loadlinechart = function (sd,ed,tdasp) {
+             let data = [];
+             let lables = [];
+             lables.push(sd)
+             tdasp.forEach((item, index) => {
+                 data.push(item.storypoints);
+                 lables.push(item.date);
+                 
+                 
+             });
+             lables.push(ed)
+             //console.log(data)
+             //console.log(lables)
+             //var color = getRandomColorHex();
+             //console.log(color)
+             var linechartdata = {
+                 labels: lables,
+                 datasets: [{
+                     label: "Remaining StoryPoints",
+                     data: data,
+                     backgroundColor: '#AED6F1'
+                 }],
+             };
 
-        //     var linechartdata = {
-        //         labels: lables,
-        //         datasets: [{
-        //             label: "StoryPoints (Completed)",
-        //             data: data,
-        //             backgroundColor: colors,
-        //         }],
-        //     };
+             var ctx = document.getElementById('myChart').getContext('2d');
+             new Chart(ctx, {
+                 type: 'line',
+                 data: linechartdata,
+                 options: {
+                     //to get sharp edges instead of smooth curves
+                     
+                     elements: {
+                        line: {
+                            tension: 0
+                        }
+                    }
+                     
 
-        //     var ctx = document.getElementById('myChart').getContext('2d');
-        //     new Chart(ctx, {
-        //         type: 'horizontalBar',
-        //         data: linechartdata,
-        //         options: {
-        //             scales: {
-        //                 xAxes: [{
+                 }
+             });
 
-        //                     stacked: true,
-
-        //                 }],
-        //                 yAxes: [{
-        //                     categorySpacing: 20,
-        //                     barThickness: 10,
-        //                     barPercentage: 0.5,
-        //                     stacked: true
-        //                 }]
-        //             }
-        //         }
-        //     });
-        // }
-
-        // ctrl.loadbarchart = function (teamList) {
-        //     let data = [];
-        //     let lables = [];
-        //     let colors = [];
-        //     teamList.forEach((item, index) => {
-        //         data.push(item.velocity);
-        //         lables.push(item.name);
-        //         colors.push(getRandomColorHex());
-        //     });
-        //     var linechartdata = {
-        //         labels: lables,
-        //         datasets: [{
-        //             label: "Estimated Velocity",
-        //             data: data,
-        //             backgroundColor: colors
-        //         }],
-        //     };
-
-        //     var ctx = document.getElementById('barChart').getContext('2d');
-        //     new Chart(ctx, {
-        //         type: 'horizontalBar',
-        //         data: linechartdata,
-        //         options: {
-        //             scales: {
-        //                 xAxes: [{
-
-        //                     stacked: true,
-
-        //                 }],
-        //                 yAxes: [{
-        //                     categorySpacing: 20,
-        //                     barThickness: 10,
-        //                     barPercentage: 0.5,
-        //                     stacked: true
-        //                 }]
-        //             }
-        //         }
-        //     });
-        // }
-        ctrl.loadgraph = function (sd, ed, tdasp) {
-            let data = [];
-            let lables = [];
-            let colors = [];
-            // tdasp.forEach((item, index) => {
-            //     data.push(item.storypoints);
-            //     lables.push(item.date);
-            //     //         colors.push(getRandomColorHex());
-            // });
-            var ctx = document.getElementById('myChart').getContext('2d');
-            new Chart(ctx, {
-                // The type of chart we want to create
-                type: 'line',
-
-                // The data for our dataset
-                data: {
-                    labels: ["January", "February", "March", "April", "May", "June", "July"],
-                    datasets: [{
-                        label: "My First dataset",
-                        // backgroundColor: 'rgb(255, 99, 132)',
-                        borderColor: 'rgb(255, 99, 132)',
-                        data: [0, 10, 5, 2, 20, 30, 45],
-                    }]
-                },
-
-                // Configuration options go here
-                options: {}
-            });
-
-        }
+            }
 
         ctrl.load = function () {
 
@@ -306,7 +199,7 @@
                     ctrl.agileManagerDetails[0].hpamFeature = angular.copy(filtered);
                     ctrl.agileManagerDetails[0].hpamRelease=angular.copy(filtered2)
                     ctrl.agileManagerDetails[0].hpamRBurn=angular.copy(filtered3)
-                    console.log(ctrl.agileManagerDetails[0].hpamRBurn)
+                    
                     ctrl.copyAgileManagerDetails[0].hpamFeature = angular.copy(filtered);
                     ctrl.copyAgileManagerDetails[0].hpamRelease=angular.copy(filtered2)
                     // ctrl.uniqueReleaseIds = [...new Set(ctrl.agileManagerDetails[0].hpamBacklog.map(item => {
@@ -342,10 +235,8 @@
                     //     if (item.sprintid && item.sprintid.id){
                     //         return item.sprintid.id;
                     //     }
-                    // }))];
-                    // ctrl.filterfeatures();
-                    // ctrl.teamvelocity();
-                    ctrl.loadgraph();
+                    // }))];                    
+                    ctrl.DateAndRemainingSP();
                    
                 });
 
