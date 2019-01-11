@@ -98,14 +98,14 @@
             console.log('event fired');
         });
 
-        function getRandomColorHex() {
-            var hex = "0123456789ABCDEF",
-                color = "#";
-            for (var i = 1; i <= 6; i++) {
-                color += hex[Math.floor(Math.random() * 16)];
-            }
-            return color;
-        }
+        // function getRandomColorHex() {
+        //     var hex = "0123456789ABCDEF",
+        //         color = "#";
+        //     for (var i = 1; i <= 6; i++) {
+        //         color += hex[Math.floor(Math.random() * 16)];
+        //     }
+        //     return color;
+        // }
 
         //  ctrl.loadChart = function (done, newvalue, inprogress) {
         //      var pieData = {
@@ -124,48 +124,77 @@
         //      });
         //  }
 
-         ctrl.loadlinechart = function (sd,ed,tdasp) {
-             let data = [];
-             let lables = [];
-             lables.push(sd)
-             tdasp.forEach((item, index) => {
-                 data.push(item.storypoints);
-                 lables.push(item.date);
-                 
-                 
-             });
-             lables.push(ed)
-             //console.log(data)
-             //console.log(lables)
-             //var color = getRandomColorHex();
-             //console.log(color)
-             var linechartdata = {
-                 labels: lables,
-                 datasets: [{
-                     label: "Remaining StoryPoints",
-                     data: data,
-                     backgroundColor: '#AED6F1'
-                 }],
-             };
+        ctrl.loadlinechart = function (sd, ed, tdasp) {
+            let data = [];
+            let lables = [];
+            //lables.push(sd)
+            tdasp.forEach((item, index) => {
+                data.push(item.storypoints);
+                lables.push(item.date);
 
-             var ctx = document.getElementById('myChart').getContext('2d');
-             new Chart(ctx, {
-                 type: 'line',
-                 data: linechartdata,
-                 options: {
-                     //to get sharp edges instead of smooth curves
-                     
-                     elements: {
+
+            });
+            lables.push(ed)
+            //console.log(data)
+            //console.log(lables)
+            //var color = getRandomColorHex();
+            //console.log(color)
+            var linechartdata = {
+                labels: lables,
+                
+                datasets: [{
+                    label: "Remaining StoryPoints",
+                    fill: false,
+                    data: data,
+                    borderColor: '#AED6F1',
+                    backgroundColor: '#AED6F1'
+                    
+					
+                }],
+            };
+
+            var ctx = document.getElementById('myChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: linechartdata,
+                options: {
+                    //to get sharp edges instead of smooth curves
+                    responsive: true,
+                    title: {
+                        display: true,
+                        text: 'Release Burn Down Chart'
+                    },
+                    tooltips: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    scales: {
+                        xAxes: [{
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Date'
+                            }
+                        }],
+                        yAxes: [{
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Strory Points'
+                            }
+                        }]
+                    },
+                    elements: {
                         line: {
                             tension: 0
                         }
                     }
-                     
 
-                 }
-             });
 
-            }
+                }
+            });
+
+        }
 
         ctrl.load = function () {
 
@@ -191,17 +220,17 @@
                     var filtered3 = ctrl.agileManagerDetails[0].hpamRBurn.filter(function (item) {
                         return item.releaseid == $scope.widgetConfig.options.releaseid;
                     });
-                    
+
                     // ctrl.teamfiltered = ctrl.agileManagerDetails[0].hpamTeam.filter(function (item) {
                     //     return item.workspaceid == $scope.widgetConfig.options.workspaceid;
                     // });
 
                     ctrl.agileManagerDetails[0].hpamFeature = angular.copy(filtered);
-                    ctrl.agileManagerDetails[0].hpamRelease=angular.copy(filtered2)
-                    ctrl.agileManagerDetails[0].hpamRBurn=angular.copy(filtered3)
-                    
+                    ctrl.agileManagerDetails[0].hpamRelease = angular.copy(filtered2)
+                    ctrl.agileManagerDetails[0].hpamRBurn = angular.copy(filtered3)
+
                     ctrl.copyAgileManagerDetails[0].hpamFeature = angular.copy(filtered);
-                    ctrl.copyAgileManagerDetails[0].hpamRelease=angular.copy(filtered2)
+                    ctrl.copyAgileManagerDetails[0].hpamRelease = angular.copy(filtered2)
                     // ctrl.uniqueReleaseIds = [...new Set(ctrl.agileManagerDetails[0].hpamBacklog.map(item => {
                     //     if (item.releaseid && item.releaseid.id) {
                     //         return item.releaseid.id;
@@ -237,7 +266,7 @@
                     //     }
                     // }))];                    
                     ctrl.DateAndRemainingSP();
-                   
+
                 });
 
 
@@ -255,7 +284,7 @@
                 controllerAs: 'detail',
                 templateUrl: 'components/widgets/agilemanager/detail.html',
                 size: 'lg'
-                
+
             });
         }
     }
