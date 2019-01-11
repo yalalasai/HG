@@ -130,11 +130,21 @@
              lables.push(sd)
              tdasp.forEach((item, index) => {
                  data.push(item.storypoints);
-                 lables.push(item.date);
-                 
-                 
+                 lables.push(item.date);      
              });
              lables.push(ed)
+
+             var rsp = 11111;
+             var length = lables.length - 1
+             console.log(length)
+             var lrsp = rsp / length
+             var data2 = [];
+             data2.push(rsp)
+             for (var i = 0; i < length; i++) {
+                 rsp = rsp - lrsp;
+                 data2.push(parseInt(rsp));
+             }
+             //console.log(data2)
              //console.log(data)
              //console.log(lables)
              //var color = getRandomColorHex();
@@ -143,9 +153,16 @@
                  labels: lables,
                  datasets: [{
                      label: "Remaining StoryPoints",
+                     fill: false,
                      data: data,
-                     backgroundColor: '#AED6F1'
-                 }],
+                     borderColor: '#AED6F1',
+                    backgroundColor: '#AED6F1'
+                     //backgroundColor: '#AED6F1'
+                 },{label:"estimated Velocity",
+                 fill: false,
+                 borderColor: '#FF0000',
+                    backgroundColor: '#FF0000',
+                data:data2}],
              };
 
              var ctx = document.getElementById('myChart').getContext('2d');
@@ -153,15 +170,47 @@
                  type: 'line',
                  data: linechartdata,
                  options: {
+                    
                      //to get sharp edges instead of smooth curves
-                     
+                     responsive: true,
+                    title: {
+                        display: true,
+                        text: 'Release Burn Down Chart'
+                    },
+                    tooltips: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    scales: {
+                        xAxes: [{
+                            afterTickToLabelConversion: function (data) {
+                                var xLabels = data.ticks;
+                                console.log(xLabels)
+                                xLabels.forEach(function (labels, i) {
+                                    if (i % 5 != 0) {
+                                        xLabels[i] = '';
+                                    }
+                                });
+                            },
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Date'
+                            }
+                        }],
+                        yAxes: [{
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Strory Points'
+                            }
+                        }]
+                    },
                      elements: {
-                        line: {
-                            tension: 0
-                        }
-                    }
-                     
-
+                         line: {
+                             tension: 0
+                         }
+                     }
                  }
              });
 
