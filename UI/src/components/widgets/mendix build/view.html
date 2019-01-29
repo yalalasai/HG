@@ -4,7 +4,7 @@
         <thead>
             <tr class="dash-row ">
 
-                <th class="server-count align-left" width="57%">Package Name</th>
+                <th class="server-count align-left">Package Name</th>
                 <th class="server-count align-left">Version</th>
                 <th class="server-count align-left">Description</th>
                 <th class="server-count align-left">Creation Date</th>
@@ -18,12 +18,12 @@
         <tbody ng-repeat="x in mendixBuildView.mendixBuildDetails">
             <tr class="dash-row clickable" ng-repeat="environment in x.buildApiDetails">
 
-                <td class="server-count align-left" width="40%">
+                <td class="server-count align-left">
                     {{environment.name}}
 
                 </td>
 
-                <td class="server-count align-left" >
+                <td class="server-count align-left">
                     {{environment.version}}
 
                 </td>
@@ -37,7 +37,7 @@
 
                 </td> 
 
-                <td class="server-count">
+                <td class="server-count align-left">
                     {{environment.mendixversion}}
                 </td>
                 <td class="server-count align-left">
